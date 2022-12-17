@@ -4,12 +4,16 @@ import {
   endTheDay,
   goToNextDay,
 } from "./toggleScreen.js";
-import { probabilityOfPurchase } from "./probability.js";
-import {
-  randomWeather,
-  randomTemperature,
-  randomNumOfCustomers,
-} from "./randomisation.js";
+import { simulateDay } from "./simulation.js";
+
+// Variables
+let day = 1;
+const inventory = {
+  paperCups: 0,
+  lemon: 0,
+  sugar: 0,
+  iceCubes: 0,
+};
 
 $(() => {
   // Event listeners to toggle between screens
@@ -18,9 +22,5 @@ $(() => {
   // $("#end-day-btn").on("click", endTheDay);
   // $("#next-day-btn").on("click", goToNextDay);
 
-  const weather = randomWeather();
-  const temperature = randomTemperature();
-  const numOfCustomers = randomNumOfCustomers();
-
-  probabilityOfPurchase(weather, temperature, 6.5);
+  simulateDay();
 });

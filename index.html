@@ -31,7 +31,7 @@
         <p>Weather: <span id="weather">Sunny</span></p>
       </div>
       <div id="cash-bal-section">
-        <p>Cash balance: $<span id="cash">100</span></p>
+        <p>Cash balance: $<span class="cash">100</span></p>
       </div>
       <div id="inventory-bal-section">
         <div id="paper-cups">
@@ -88,7 +88,8 @@
         </div>
       </div>
       <div id="price-per-cup">
-        <p>Price per cup: $<span id="price">2</span></p>
+        <label for="price-input">Price per cup</label>
+        <input type="number" step="0.1" id="price-input" />
       </div>
       <button id="start-day-btn">Start day!</button>
     </div>
@@ -111,13 +112,32 @@
 
     <!-- day_simulation screen -->
     <div id="day-simulation-screen" style="display: block" class="screen">
-      <h1>Simulation</h1>
+      <h1 id="simulation-header">Simulation</h1>
       <button id="end-day-btn">End the day!</button>
     </div>
 
     <!-- day_end screen -->
     <div id="day-end-screen" style="display: block" class="screen">
       <h1>Day <span class="day-num">1</span> Report</h1>
+      <div id="sales-report">
+        <p>
+          You managed to sell <span id="cups-sold">x</span> cups to
+          <span id="num-of-customers">x</span> potential customers!
+          <br />Considering the weather, this is <span id="result">great</span>!
+        </p>
+      </div>
+      <div id="inventory-report">
+        <p>Inventory balance:</p>
+        <ul>
+          <li><span id="paper-cup-count">x</span> paper cup</li>
+          <li><span id="lemon-count">x</span> lemon</li>
+          <li><span id="sugar-count">x</span> packets of sugar</li>
+          <li><span id="ice-cubes-count">x</span> ice cubes</li>
+        </ul>
+      </div>
+      <div id="cash-report">
+        <p>Cash balance: <span class="cash">x</span></p>
+      </div>
       <button id="next-day-btn">Lets go to the next day!</button>
     </div>
 
