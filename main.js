@@ -5,8 +5,11 @@ import {
   goToNextDay,
 } from "./toggleScreen.js";
 import { probabilityOfPurchase } from "./probability.js";
-import { randomWeather } from "./weather.js";
-import { randomTemperature } from "./tenperature.js";
+import {
+  randomWeather,
+  randomTemperature,
+  randomNumOfCustomers,
+} from "./randomisation.js";
 
 $(() => {
   // Event listeners to toggle between screens
@@ -17,6 +20,7 @@ $(() => {
 
   const weather = randomWeather();
   const temperature = randomTemperature();
+  const numOfCustomers = randomNumOfCustomers();
 
   probabilityOfPurchase(weather, temperature, 6.5);
 });
