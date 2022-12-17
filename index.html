@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lemonade Stand</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- start screen -->
+    <div id="start-game-screen" style="display: block" class="screen">
+      <h1>The Lemonade Stand</h1>
+      <button id="start-game-btn">Start Game!</button>
+    </div>
+
+    <!-- Instructions screen -->
+    <div id="instructions-screen" style="display: block" class="screen">
+      <h1>Instructions</h1>
+      <p>
+        Maximise profit in 7 days. <br />
+        Make inventory and pricing decisions.
+      </p>
+    </div>
+
+    <!-- day_start screen -->
+    <div id="day-start-screen" style="display: block" class="screen">
+      <h1>Day <span class="day-num">1</span></h1>
+      <div id="weather-report-section">
+        <p>Temperature: <span id="temp">34</span>°C</p>
+        <p>Weather: <span id="weather">Sunny</span></p>
+      </div>
+      <div id="cash-bal-section">
+        <p>Cash balance: $<span id="cash">100</span></p>
+      </div>
+      <div id="inventory-bal-section">
+        <div id="paper-cups">
+          <p>Paper cups: <span id="paper-cups-qty">0</span></p>
+          <div>
+            <input type="radio" name="paper-cups" id="paper-cups-1" />
+            <label for="paper-cups-1">0 for $0</label>
+            <input type="radio" name="paper-cups" id="paper-cups-2" />
+            <label for="paper-cups-2">25 for $1.80</label>
+            <input type="radio" name="paper-cups" id="paper-cups-3" />
+            <label for="paper-cups-3">50 for $3.30</label>
+            <input type="radio" name="paper-cups" id="paper-cups-4" />
+            <label for="paper-cups-4">100 for $6</label>
+          </div>
+        </div>
+        <div id="lemon">
+          <p>Lemon: <span id="lemon-qty">0</span></p>
+          <div>
+            <input type="radio" name="lemon" id="lemon-1" />
+            <label for="lemon-1">0 for $0</label>
+            <input type="radio" name="lemon" id="lemon-2" />
+            <label for="lemon-2">10 for $7.90</label>
+            <input type="radio" name="lemon" id="lemon-3" />
+            <label for="lemon-3">30 for $22.20</label>
+            <input type="radio" name="lemon" id="lemon-4" />
+            <label for="lemon-4">75 for $50.50</label>
+          </div>
+        </div>
+        <div id="sugar">
+          <p>Sugar: <span id="sugar-qty">0</span></p>
+          <div>
+            <input type="radio" name="sugar" id="sugar-1" />
+            <label for="sugar-1">0 for $0</label>
+            <input type="radio" name="sugar" id="sugar-2" />
+            <label for="sugar-2">30 for $3.90</label>
+            <input type="radio" name="sugar" id="sugar-3" />
+            <label for="sugar-3">75 for $8.40</label>
+            <input type="radio" name="sugar" id="sugar-4" />
+            <label for="sugar-4">150 for $13.30</label>
+          </div>
+        </div>
+        <div id="ice-cubes">
+          <p>Ice cubes: <span id="ice-cubes-qty">0</span></p>
+          <div>
+            <input type="radio" name="ice-cubes" id="ice-cubes-1" />
+            <label for="ice-cubes-1">0 for $0</label>
+            <input type="radio" name="ice-cubes" id="ice-cubes-2" />
+            <label for="ice-cubes-2">100 for $2.50</label>
+            <input type="radio" name="ice-cubes" id="ice-cubes-3" />
+            <label for="ice-cubes-3">250 for $5.30</label>
+            <input type="radio" name="ice-cubes" id="ice-cubes-4" />
+            <label for="ice-cubes-4">1000 for $13</label>
+          </div>
+        </div>
+      </div>
+      <div id="price-per-cup">
+        <p>Price per cup: $<span id="price">2</span></p>
+      </div>
+      <button id="start-day-btn">Start day!</button>
+    </div>
+
+    <!-- Recipe screen -->
+    <div id="recipe-screen" style="display: block" class="tab">
+      <h1>Recipe</h1>
+      <ul>
+        <li>1 paper cup</li>
+        <li>1 lemon</li>
+        <li>2 packets of sugar</li>
+        <li>8 ice cubes</li>
+      </ul>
+    </div>
+
+    <!-- Tips  -->
+    <div id="tip-screen" style="display: block" class="tab">
+      <h1>Tips</h1>
+    </div>
+
+    <!-- day_simulation screen -->
+    <div id="day-simulation-screen" style="display: block" class="screen">
+      <h1>Simulation</h1>
+      <button id="end-day-btn">End the day!</button>
+    </div>
+
+    <!-- day_end screen -->
+    <div id="day-end-screen" style="display: block" class="screen">
+      <h1>Day <span class="day-num">1</span> Report</h1>
+      <button id="next-day-btn">Lets go to the next day!</button>
+    </div>
+
+    <!-- end screen -->
+    <div id="end-game-screen" style="display: block" class="screen">
+      <h1>End game!</h1>
+    </div>
+
+    <!-- jQuery & js file-->
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.min.js"
+      integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+      crossorigin="anonymous"
+    ></script>
+    <script type="module" src="script.js"></script>
+  </body>
+</html>

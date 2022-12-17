@@ -1,0 +1,16 @@
+.screen {
+  width: 1000px;
+  height: 600px;
+  border: solid black 1px;
+  margin: 5px;
+  padding: 5px;
+}
+
+.tab {
+  width: 1000px;
+  height: 600px;
+  border: solid black 1px;
+  margin: 5px;
+  padding: 5px;
+  background-color: antiquewhite;
+}
