@@ -14,12 +14,12 @@ let day = 0;
 let weather = "";
 let temperature = 0;
 let price = 1;
-let cash = 50;
+let cash = 100;
 const inventory = {
-  paperCups: 50,
-  lemon: 50,
-  sugar: 50,
-  iceCubes: 50,
+  paperCups: 0,
+  lemon: 0,
+  sugar: 0,
+  iceCubes: 0,
 };
 const recipe = {
   paperCups: 1,
@@ -156,8 +156,13 @@ $(() => {
   });
 
   // Price input
+  $("#price-input").on("change", (e) => {
+    price = parseInt($(e.target).val());
+  });
+
   // Open shop button
   $("#open-shop-btn").on("click", () => {
+    console.log(typeof price);
     toggleDayStartToSimulation();
     simulateDay(weather, temperature, price);
   });
