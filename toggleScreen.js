@@ -1,5 +1,5 @@
 // toggle screen function
-function toggleScreen(id, toggle) {
+function toggleScreen(id, toggle, type) {
   let element = $("#" + id);
   let display = toggle ? "block" : "none";
 

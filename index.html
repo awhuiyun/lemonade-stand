@@ -6,12 +6,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Lemonade Stand</title>
     <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Mouse+Memoirs&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <!-- start screen -->
     <div id="start-game-screen" style="display: block" class="screen">
-      <h1>The Lemonade Stand</h1>
-      <button id="start-game-btn">Start Game!</button>
+      <h1 id="title">The <br />Lemonade <br />Stand</h1>
+      <img
+        class="img-stand"
+        id="img-stand-start-screen"
+        src="./images/lemonadeStand.png"
+      />
+      <img
+        class="img-duck"
+        id="img-duck-start-screen"
+        src="./images/duck.png"
+      />
+      <img
+        class="img-human"
+        id="img-human-start-screen"
+        src="./images/human.png"
+      />
+      <div class="button-container" id="start-screen-btns">
+        <button class="main-btn" id="start-game-btn">Start Game!</button>
+        <button class="secondary-btn" id="instructions-btn">
+          Instructions
+        </button>
+      </div>
     </div>
 
     <!-- Instructions screen -->
@@ -44,21 +70,53 @@
         <div>
           <p>Buy more inventory here:</p>
           <div id="inventory-btns">
-            <button id="paper-cups-1">$1.80 for 25 cups</button>
-            <button id="paper-cups-2">$3.30 for 50 cups</button>
-            <button id="paper-cups-3">$6 for 100 cups</button>
-            <br />
-            <button id="lemon-1">$7.90 for 10 lemons</button>
-            <button id="lemon-2">$22.20 for 30 lemons</button>
-            <button id="lemon-3">$50.50 for 75 lemons</button>
-            <br />
-            <button id="sugar-1">$3.90 for 30 packets</button>
-            <button id="sugar-2">$8.40 for 75 packets</button>
-            <button id="sugar-3">$13.30 for 150 packets</button>
-            <br />
-            <button id="ice-cubes-1">$2.50 for 100 cubes</button>
-            <button id="ice-cubes-2">$5.30 for 250 cubes</button>
-            <button id="ice-cubes-3">$13 for 1000 cubes</button>
+            <div class="button-container">
+              <button id="paper-cups-1" class="secondary-btn inventory-btn">
+                $1.80 for 25 cups
+              </button>
+              <button id="paper-cups-2" class="secondary-btn inventory-btn">
+                $3.30 for 50 cups
+              </button>
+              <button id="paper-cups-3" class="secondary-btn inventory-btn">
+                $6 for 100 cups
+              </button>
+            </div>
+
+            <div class="button-container">
+              <button id="lemon-1" class="secondary-btn inventory-btn">
+                $7.90 for 10 lemons
+              </button>
+              <button id="lemon-2" class="secondary-btn inventory-btn">
+                $22.20 for 30 lemons
+              </button>
+              <button id="lemon-3" class="secondary-btn inventory-btn">
+                $50.50 for 75 lemons
+              </button>
+            </div>
+
+            <div class="button-container">
+              <button id="sugar-1" class="secondary-btn inventory-btn">
+                $3.90 for 30 packets
+              </button>
+              <button id="sugar-2" class="secondary-btn inventory-btn">
+                $8.40 for 75 packets
+              </button>
+              <button id="sugar-3" class="secondary-btn inventory-btn">
+                $13.30 for 150 packets
+              </button>
+            </div>
+
+            <div class="button-container">
+              <button id="ice-cubes-1" class="secondary-btn inventory-btn">
+                $2.50 for 100 cubes
+              </button>
+              <button id="ice-cubes-2" class="secondary-btn inventory-btn">
+                $5.30 for 250 cubes
+              </button>
+              <button id="ice-cubes-3" class="secondary-btn inventory-btn">
+                $13 for 1000 cubes
+              </button>
+            </div>
           </div>
         </div>
       </div>

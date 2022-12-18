@@ -13,7 +13,7 @@ import { simulateDay } from "./simulation.js";
 let day = 0;
 let weather = "";
 let temperature = 0;
-let price = 1;
+let price = 0;
 let cash = 100;
 const inventory = {
   paperCups: 0,
@@ -189,6 +189,7 @@ $(() => {
 
   // Event listeners on end-game-screen
   $("#replay-btn").on("click", () => {
+    location.reload();
     toggleEndGameToStartGame();
   });
 });
