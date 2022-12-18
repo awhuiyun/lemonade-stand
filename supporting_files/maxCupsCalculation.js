@@ -1,4 +1,4 @@
-import { recipe } from "./variables.js";
+import { recipe } from "../main.js";
 
 // Function that calculates that maximum number of cups that can be sold based on inventory
 function maxCupsCalculation(paperCups, lemon, sugar, iceCubes) {

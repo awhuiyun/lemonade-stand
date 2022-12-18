@@ -15,7 +15,7 @@
     </div>
 
     <!-- Instructions screen -->
-    <div id="instructions-screen" style="display: block" class="screen">
+    <div id="instructions-screen" style="display: none" class="screen">
       <h1>Instructions</h1>
       <p>
         Maximise profit in 7 days. <br />
@@ -24,18 +24,18 @@
     </div>
 
     <!-- day_start screen -->
-    <div id="day-start-screen" style="display: block" class="screen">
-      <h1>Day <span class="day-num">1</span></h1>
+    <div id="day-start-screen" style="display: none" class="screen">
+      <h1>Day <span class="day-num">x</span></h1>
       <div id="weather-report-section">
-        <p>Temperature: <span id="temp">34</span>°C</p>
-        <p>Weather: <span id="weather">Sunny</span></p>
+        <p>Temperature: <span id="temp">x</span>°C</p>
+        <p>Weather: <span id="weather">x</span></p>
       </div>
       <div id="cash-bal-section">
-        <p>Cash balance: $<span class="cash">100</span></p>
+        <p>Cash balance: $<span class="cash">x</span></p>
       </div>
       <div id="inventory-bal-section">
         <div id="paper-cups">
-          <p>Paper cups: <span id="paper-cups-qty">0</span></p>
+          <p>Paper cups: <span id="paper-cups-qty">x</span></p>
           <div>
             <input type="radio" name="paper-cups" id="paper-cups-1" />
             <label for="paper-cups-1">0 for $0</label>
@@ -48,7 +48,7 @@
           </div>
         </div>
         <div id="lemon">
-          <p>Lemon: <span id="lemon-qty">0</span></p>
+          <p>Lemon: <span id="lemon-qty">x</span></p>
           <div>
             <input type="radio" name="lemon" id="lemon-1" />
             <label for="lemon-1">0 for $0</label>
@@ -61,7 +61,7 @@
           </div>
         </div>
         <div id="sugar">
-          <p>Sugar: <span id="sugar-qty">0</span></p>
+          <p>Sugar: <span id="sugar-qty">x</span></p>
           <div>
             <input type="radio" name="sugar" id="sugar-1" />
             <label for="sugar-1">0 for $0</label>
@@ -74,7 +74,7 @@
           </div>
         </div>
         <div id="ice-cubes">
-          <p>Ice cubes: <span id="ice-cubes-qty">0</span></p>
+          <p>Ice cubes: <span id="ice-cubes-qty">x</span></p>
           <div>
             <input type="radio" name="ice-cubes" id="ice-cubes-1" />
             <label for="ice-cubes-1">0 for $0</label>
@@ -91,11 +91,11 @@
         <label for="price-input">Price per cup</label>
         <input type="number" step="0.1" id="price-input" />
       </div>
-      <button id="start-day-btn">Start day!</button>
+      <button id="open-shop-btn">Open shop!</button>
     </div>
 
     <!-- Recipe screen -->
-    <div id="recipe-screen" style="display: block" class="tab">
+    <div id="recipe-screen" style="display: none" class="tab">
       <h1>Recipe</h1>
       <ul>
         <li>1 paper cup</li>
@@ -106,18 +106,18 @@
     </div>
 
     <!-- Tips  -->
-    <div id="tip-screen" style="display: block" class="tab">
+    <div id="tip-screen" style="display: none" class="tab">
       <h1>Tips</h1>
     </div>
 
     <!-- day_simulation screen -->
-    <div id="day-simulation-screen" style="display: block" class="screen">
+    <div id="day-simulation-screen" style="display: none" class="screen">
       <h1 id="simulation-header">Simulation</h1>
-      <button id="end-day-btn">End the day!</button>
+      <button id="close-shop-btn">Close shop!</button>
     </div>
 
     <!-- day_end screen -->
-    <div id="day-end-screen" style="display: block" class="screen">
+    <div id="day-end-screen" style="display: none" class="screen">
       <h1>Day <span class="day-num">1</span> Report</h1>
       <div id="sales-report">
         <p>
@@ -138,11 +138,11 @@
       <div id="cash-report">
         <p>Cash balance: <span class="cash">x</span></p>
       </div>
-      <button id="next-day-btn">Lets go to the next day!</button>
+      <button id="prep-next-day-btn">Prep for next day!</button>
     </div>
 
     <!-- end screen -->
-    <div id="end-game-screen" style="display: block" class="screen">
+    <div id="end-game-screen" style="display: none" class="screen">
       <h1>End game!</h1>
     </div>
 

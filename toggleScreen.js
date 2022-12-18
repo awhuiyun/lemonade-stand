@@ -5,29 +5,39 @@ function toggleScreen(id, toggle) {
 
   element.css("display", display);
 }
-
-// Start game function
-function startGame() {
+// Toggle to day
+function toggleStartGameToDayStart() {
   toggleScreen("start-game-screen", false);
   toggleScreen("day-start-screen", true);
 }
 
 // Buy inventory function
-function buyInventory() {
+function toggleDayStartToSimulation() {
   toggleScreen("day-start-screen", false);
   toggleScreen("day-simulation-screen", true);
 }
 
 // End the day function
-function endTheDay() {
+function toggleSimulationToDayEnd() {
   toggleScreen("day-simulation-screen", false);
   toggleScreen("day-end-screen", true);
 }
 
+function toggleDayEndToDayStart() {
+  toggleScreen("day-end-screen", false);
+  toggleScreen("day-start-screen", true);
+}
+
 // Go to next day function
-function goToNextDay() {
+function toggleDayEndToEndGame() {
   toggleScreen("day-end-screen", false);
   toggleScreen("end-game-screen", true);
 }
 
-export { startGame, buyInventory, endTheDay, goToNextDay };
+export {
+  toggleStartGameToDayStart,
+  toggleDayStartToSimulation,
+  toggleSimulationToDayEnd,
+  toggleDayEndToDayStart,
+  toggleDayEndToEndGame,
+};

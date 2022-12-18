@@ -1,19 +1,19 @@
-import { probabilityOfPurchase } from "./probability.js";
+import { probabilityOfPurchase } from "./supporting_files/probability.js";
 import {
   randomWeather,
   randomTemperature,
   randomNumOfCustomers,
-} from "./randomisation.js";
-import { eodReportUpdate } from "./updateEodReport.js";
-import { maxCupsCalculation } from "./maxCupsCalculation.js";
-import { inventory, cash, recipe } from "./variables.js";
+} from "./supporting_files/randomisation.js";
+import { eodReportUpdate } from "./supporting_files/updateEodReport.js";
+import { maxCupsCalculation } from "./supporting_files/maxCupsCalculation.js";
+import { inventory, cash, setCash, recipe } from "./main.js";
 
 // Function to simulate day
-function simulateDay() {
-  // Randomize demand factors and calcualate probability of purchase
-  const weather = randomWeather();
-  const temperature = randomTemperature();
-  const price = Math.floor(Math.random() * (7 - 1 + 1)) + 1;
+function simulateDay(weather, temperature, price) {
+  // Calcualate probability of purchase from demand factors
+  // const weather = randomWeather();
+  // const temperature = randomTemperature();
+  // const pricePerCup = price;
   const probability = probabilityOfPurchase(weather, temperature, price);
 
   // Randomize number of customers
@@ -36,23 +36,26 @@ function simulateDay() {
     // Interaction with screen (append text for now)
     const $result = $("<img>");
 
+    // Logic if customer buys or does not buy a cup
     if (boughtCount < maxCupsThatCanBeSold) {
-      // Randomization
+      // Customer is able to purchase a cup (sufficient inventory)
       const randomNum = Math.random();
-
       if (randomNum <= probability) {
+        // Customer buys a cup
         boughtCount++;
         inventory.paperCups = inventory.paperCups - recipe.paperCups;
         inventory.lemon = inventory.lemon - recipe.lemon;
         inventory.sugar = inventory.sugar - recipe.sugar;
         inventory.iceCubes = inventory.iceCubes - recipe.iceCubes;
-        // cash = cash + price;
+        setCash(cash + price);
         $result.attr("src", "./images/tick.png").width("50px");
       } else {
+        // Customer does not buy a cup
         didNotBuyCount++;
         $result.attr("src", "./images/cross.png").width("50px");
       }
     } else {
+      // Customer is not able to purchase a cup (insufficient inventory)
       didNotBuyCount++;
       $result.attr("src", "./images/cross.png").width("50px");
     }
@@ -61,8 +64,7 @@ function simulateDay() {
     $("#simulation-header").after($result);
   }
 
-  // Toggle to day_end screen and update report
-  // Place toggle here
+  // Update EOD report
   eodReportUpdate(boughtCount, numOfCustomers, cash);
 
   // check

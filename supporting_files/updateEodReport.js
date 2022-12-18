@@ -1,4 +1,4 @@
-import { inventory } from "./variables.js";
+import { inventory } from "../main.js";
 
 // Function that updates end of day report after simulation
 function eodReportUpdate(boughtCount, numOfCustomers, cash) {
