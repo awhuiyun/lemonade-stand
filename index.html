@@ -34,56 +34,31 @@
         <p>Cash balance: $<span class="cash">x</span></p>
       </div>
       <div id="inventory-bal-section">
-        <div id="paper-cups">
-          <p>Paper cups: <span id="paper-cups-qty">x</span></p>
-          <div>
-            <input type="radio" name="paper-cups" id="paper-cups-1" />
-            <label for="paper-cups-1">0 for $0</label>
-            <input type="radio" name="paper-cups" id="paper-cups-2" />
-            <label for="paper-cups-2">25 for $1.80</label>
-            <input type="radio" name="paper-cups" id="paper-cups-3" />
-            <label for="paper-cups-3">50 for $3.30</label>
-            <input type="radio" name="paper-cups" id="paper-cups-4" />
-            <label for="paper-cups-4">100 for $6</label>
-          </div>
+        <div id="current-bal">
+          <p>Current inventory balance:</p>
+          <p>Paper cups: <span id="paper-cups-qty">x</span> cups</p>
+          <p>Lemon: <span id="lemon-qty">x</span> pcs</p>
+          <p>Sugar: <span id="sugar-qty">x</span> packets</p>
+          <p>Ice cubes: <span id="ice-cubes-qty">x</span> cubes</p>
         </div>
-        <div id="lemon">
-          <p>Lemon: <span id="lemon-qty">x</span></p>
-          <div>
-            <input type="radio" name="lemon" id="lemon-1" />
-            <label for="lemon-1">0 for $0</label>
-            <input type="radio" name="lemon" id="lemon-2" />
-            <label for="lemon-2">10 for $7.90</label>
-            <input type="radio" name="lemon" id="lemon-3" />
-            <label for="lemon-3">30 for $22.20</label>
-            <input type="radio" name="lemon" id="lemon-4" />
-            <label for="lemon-4">75 for $50.50</label>
-          </div>
-        </div>
-        <div id="sugar">
-          <p>Sugar: <span id="sugar-qty">x</span></p>
-          <div>
-            <input type="radio" name="sugar" id="sugar-1" />
-            <label for="sugar-1">0 for $0</label>
-            <input type="radio" name="sugar" id="sugar-2" />
-            <label for="sugar-2">30 for $3.90</label>
-            <input type="radio" name="sugar" id="sugar-3" />
-            <label for="sugar-3">75 for $8.40</label>
-            <input type="radio" name="sugar" id="sugar-4" />
-            <label for="sugar-4">150 for $13.30</label>
-          </div>
-        </div>
-        <div id="ice-cubes">
-          <p>Ice cubes: <span id="ice-cubes-qty">x</span></p>
-          <div>
-            <input type="radio" name="ice-cubes" id="ice-cubes-1" />
-            <label for="ice-cubes-1">0 for $0</label>
-            <input type="radio" name="ice-cubes" id="ice-cubes-2" />
-            <label for="ice-cubes-2">100 for $2.50</label>
-            <input type="radio" name="ice-cubes" id="ice-cubes-3" />
-            <label for="ice-cubes-3">250 for $5.30</label>
-            <input type="radio" name="ice-cubes" id="ice-cubes-4" />
-            <label for="ice-cubes-4">1000 for $13</label>
+        <div>
+          <p>Buy more inventory here:</p>
+          <div id="inventory-btns">
+            <button id="paper-cups-1">$1.80 for 25 cups</button>
+            <button id="paper-cups-2">$3.30 for 50 cups</button>
+            <button id="paper-cups-3">$6 for 100 cups</button>
+            <br />
+            <button id="lemon-1">$7.90 for 10 lemons</button>
+            <button id="lemon-2">$22.20 for 30 lemons</button>
+            <button id="lemon-3">$50.50 for 75 lemons</button>
+            <br />
+            <button id="sugar-1">$3.90 for 30 packets</button>
+            <button id="sugar-2">$8.40 for 75 packets</button>
+            <button id="sugar-3">$13.30 for 150 packets</button>
+            <br />
+            <button id="ice-cubes-1">$2.50 for 100 cubes</button>
+            <button id="ice-cubes-2">$5.30 for 250 cubes</button>
+            <button id="ice-cubes-3">$13 for 1000 cubes</button>
           </div>
         </div>
       </div>
@@ -143,7 +118,12 @@
 
     <!-- end screen -->
     <div id="end-game-screen" style="display: none" class="screen">
-      <h1>End game!</h1>
+      <h1>End of season report</h1>
+      <p>Total income:</p>
+      <p>Total expenses:</p>
+      <p>Liquidated inventory value:</p>
+      <p>Net profit/loss:</p>
+      <button id="replay-btn">Play again?</button>
     </div>
 
     <!-- jQuery & js file-->

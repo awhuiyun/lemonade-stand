@@ -34,10 +34,17 @@ function toggleDayEndToEndGame() {
   toggleScreen("end-game-screen", true);
 }
 
+// Replay function
+function toggleEndGameToStartGame() {
+  toggleScreen("end-game-screen", false);
+  toggleScreen("start-game-screen", true);
+}
+
 export {
   toggleStartGameToDayStart,
   toggleDayStartToSimulation,
   toggleSimulationToDayEnd,
   toggleDayEndToDayStart,
   toggleDayEndToEndGame,
+  toggleEndGameToStartGame,
 };

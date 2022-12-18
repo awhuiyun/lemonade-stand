@@ -10,10 +10,7 @@ import { inventory, cash, setCash, recipe } from "./main.js";
 
 // Function to simulate day
 function simulateDay(weather, temperature, price) {
-  // Calcualate probability of purchase from demand factors
-  // const weather = randomWeather();
-  // const temperature = randomTemperature();
-  // const pricePerCup = price;
+  // Calculate probability of purchase
   const probability = probabilityOfPurchase(weather, temperature, price);
 
   // Randomize number of customers
@@ -33,12 +30,12 @@ function simulateDay(weather, temperature, price) {
 
   // Simulate if each customer buy or did not buy
   for (let i = 1; i <= numOfCustomers; i++) {
-    // Interaction with screen (append text for now)
+    // Interaction with screen (append img for now)
     const $result = $("<img>");
 
     // Logic if customer buys or does not buy a cup
+    // Customer is able to purchase a cup (sufficient inventory)
     if (boughtCount < maxCupsThatCanBeSold) {
-      // Customer is able to purchase a cup (sufficient inventory)
       const randomNum = Math.random();
       if (randomNum <= probability) {
         // Customer buys a cup
@@ -66,15 +63,6 @@ function simulateDay(weather, temperature, price) {
 
   // Update EOD report
   eodReportUpdate(boughtCount, numOfCustomers, cash);
-
-  // check
-  //   console.log(weather);
-  //   console.log(temperature);
-  //   console.log(price);
-  //   console.log(probability);
-  //   console.log("num of customers: " + numOfCustomers);
-  //   console.log("bought: " + boughtCount);
-  //   console.log("did not buy: " + didNotBuyCount);
 }
 
 export { simulateDay };
