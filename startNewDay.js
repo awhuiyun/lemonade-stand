@@ -30,10 +30,10 @@ function startNewDay() {
   $("#temp").text(temperature);
   $("#weather").text(weather);
   $(".cash").text(cash);
-  $("#paper-cups-qty").text(inventory.paperCups);
-  $("#lemon-qty").text(inventory.lemon);
-  $("#sugar-qty").text(inventory.sugar);
-  $("#ice-cubes-qty").text(inventory.iceCubes);
+  $(".paper-cups-qty").text(inventory.paperCups);
+  $(".lemon-qty").text(inventory.lemon);
+  $(".sugar-qty").text(inventory.sugar);
+  $(".ice-cubes-qty").text(inventory.iceCubes);
 }
 
 export { startNewDay };

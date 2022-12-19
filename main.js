@@ -138,16 +138,16 @@ $(() => {
 
       switch (item) {
         case "paperCups":
-          $("#paper-cups-qty").text(inventory[item]);
+          $(".paper-cups-qty").text(inventory[item]);
           break;
         case "lemon":
-          $("#lemon-qty").text(inventory[item]);
+          $(".lemon-qty").text(inventory[item]);
           break;
         case "sugar":
-          $("#sugar-qty").text(inventory[item]);
+          $(".sugar-qty").text(inventory[item]);
           break;
         case "iceCubes":
-          $("#ice-cubes-qty").text(inventory[item]);
+          $(".ice-cubes-qty").text(inventory[item]);
           break;
       }
     } else {

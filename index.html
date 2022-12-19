@@ -68,7 +68,7 @@
         </p>
         <div id="inventory-bal-section">
           <div class="inv-buy-more-container" id="day-start-paper-cups">
-            <h2>Paper cups x <span id="paper-cups-qty">x</span></h2>
+            <h2>Paper cups x <span class="paper-cups-qty">x</span></h2>
             <p>Buy more:</p>
             <div class="button-container">
               <button id="paper-cups-1" class="secondary-btn inventory-btn">
@@ -84,7 +84,7 @@
           </div>
 
           <div class="inv-buy-more-container" id="day-start-lemons">
-            <h2>Lemon x <span id="lemon-qty">x</span></h2>
+            <h2>Lemon x <span class="lemon-qty">x</span></h2>
             <p>Buy more:</p>
             <div class="button-container">
               <button id="lemon-1" class="secondary-btn inventory-btn">
@@ -100,7 +100,7 @@
           </div>
 
           <div class="inv-buy-more-container" id="day-start-sugar">
-            <h2>Sugar x <span id="sugar-qty">x</span></h2>
+            <h2>Sugar x <span class="sugar-qty">x</span></h2>
             <p>Buy more:</p>
             <div class="button-container">
               <button id="sugar-1" class="secondary-btn inventory-btn">
@@ -116,7 +116,7 @@
           </div>
 
           <div class="inv-buy-more-container" id="day-start-sugar">
-            <h2>Ice cubes x <span id="ice-cubes-qty">x</span></h2>
+            <h2>Ice cubes x <span class="ice-cubes-qty">x</span></h2>
             <p>Buy more:</p>
             <div class="button-container">
               <button id="ice-cubes-1" class="secondary-btn inventory-btn">
@@ -157,33 +157,64 @@
 
     <!-- day_simulation screen -->
     <div id="day-simulation-screen" style="display: none" class="screen">
-      <h1 id="simulation-header">Simulation</h1>
-      <button id="close-shop-btn">Close shop!</button>
+      <div id="day-simulation-dashboard"></div>
+      <img
+        class="img-stand"
+        id="img-stand-simulation-screen"
+        src="./images/lemonadeStand.png"
+      />
+      <img
+        class="img-human"
+        id="img-human-simulation-screen"
+        src="./images/human.png"
+      />
+      <div id="dashboard-details">
+        <h1>Day <span class="day-num">x</span></h1>
+        <p>Cash bal: $ <span class="cash">x</span></p>
+        <p>Paper cups: <span class="paper-cups-qty">x</span></p>
+        <p>Lemon: <span class="lemon-qty">x</span></p>
+        <p>Sugar: <span class="sugar-qty">x</span></p>
+        <p>Ice cubes: <span class="ice-cubes-qty">x</span></p>
+      </div>
+      <button class="main-btn" id="close-shop-btn">Close shop!</button>
     </div>
 
     <!-- day_end screen -->
     <div id="day-end-screen" style="display: none" class="screen">
-      <h1>Day <span class="day-num">1</span> Report</h1>
-      <div id="sales-report">
-        <p>
-          You managed to sell <span id="cups-sold">x</span> cups to
-          <span id="num-of-customers">x</span> potential customers!
-          <br />Considering the weather, this is <span id="result">great</span>!
-        </p>
+      <h1>Day <span class="day-num">1</span> Performance Report</h1>
+      <p id="sales-details">
+        You managed to sell <span id="cups-sold">x</span> cups to
+        <span id="num-of-customers">x</span> potential customers!
+        <br />Considering the weather, this is <span id="result">great</span>!
+      </p>
+      <div id="report-details">
+        <div id="details-type">
+          <p>Cash balance:</p>
+          <p>Inventory balance:</p>
+        </div>
+        <div id="details-value">
+          <p class="details-color">$ <span class="cash">x</span></p>
+          <div>
+            <p class="details-value-name">Paper cups</p>
+            <p class="details-color">x <span class="paper-cups-qty">x</span></p>
+          </div>
+          <div>
+            <p class="details-value-name">Lemon</p>
+            <p class="details-color">x <span class="lemon-qty">x</span></p>
+          </div>
+          <div>
+            <p class="details-value-name">Sugar</p>
+            <p class="details-color">x <span class="sugar-qty">x</span></p>
+          </div>
+          <div>
+            <p class="details-value-name">Ice cubes</p>
+            <p class="details-color">x <span class="ice-cubes-qty">x</span></p>
+          </div>
+        </div>
       </div>
-      <div id="inventory-report">
-        <p>Inventory balance:</p>
-        <ul>
-          <li><span id="paper-cup-count">x</span> paper cup</li>
-          <li><span id="lemon-count">x</span> lemon</li>
-          <li><span id="sugar-count">x</span> packets of sugar</li>
-          <li><span id="ice-cubes-count">x</span> ice cubes</li>
-        </ul>
-      </div>
-      <div id="cash-report">
-        <p>Cash balance: <span class="cash">x</span></p>
-      </div>
-      <button id="prep-next-day-btn">Prep for next day!</button>
+      <button class="main-btn" id="prep-next-day-btn">
+        Prep for next day!
+      </button>
     </div>
 
     <!-- end screen -->
