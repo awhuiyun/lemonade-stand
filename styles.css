@@ -281,6 +281,13 @@ body {
   text-align: center;
 }
 
+#canvas1 {
+  width: 100%;
+  height: 80%;
+  position: relative;
+  z-index: 20;
+}
+
 /*********** Styles for day end screen ***********/
 #day-end-screen {
   background-color: var(--light-yellow);
