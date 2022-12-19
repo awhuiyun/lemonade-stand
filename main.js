@@ -59,7 +59,7 @@ $(() => {
 
   // Event listeners on day-start-screen
   // Inventory buttons
-  $("#inventory-btns").on("click", (e) => {
+  $(".button-container").on("click", (e) => {
     const option = $(e.target).attr("id");
     let item = "";
     let qty = 0;

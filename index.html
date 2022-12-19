@@ -15,7 +15,7 @@
   </head>
   <body>
     <!-- start screen -->
-    <div id="start-game-screen" style="display: none" class="screen">
+    <div id="start-game-screen" style="display: block" class="screen">
       <h1 id="title">The <br />Lemonade <br />Stand</h1>
       <img
         class="img-stand"
@@ -50,7 +50,7 @@
     </div>
 
     <!-- day_start screen -->
-    <div id="day-start-screen" style="display: block" class="screen">
+    <div id="day-start-screen" style="display: none" class="screen">
       <h1>Day <span class="day-num">x</span></h1>
       <div id="day-start-screen-header">
         <p id="inventory-pricing-header">Inventory & Pricing</p>
@@ -63,74 +63,80 @@
         <p>Weather: <span id="weather">x</span></p>
       </div>
       <div id="inventory-pricing-section">
-        <p>Cash balance: $<span class="cash">x</span></p>
+        <p id="day-start-screen-cash-bal">
+          Cash balance: $ <span class="cash">x</span>
+        </p>
         <div id="inventory-bal-section">
-          <div id="current-bal">
-            <p>Current inventory balance:</p>
-            <p>Paper cups: <span id="paper-cups-qty">x</span> cups</p>
-            <p>Lemon: <span id="lemon-qty">x</span> pcs</p>
-            <p>Sugar: <span id="sugar-qty">x</span> packets</p>
-            <p>Ice cubes: <span id="ice-cubes-qty">x</span> cubes</p>
+          <div class="inv-buy-more-container" id="day-start-paper-cups">
+            <h2>Paper cups x <span id="paper-cups-qty">x</span></h2>
+            <p>Buy more:</p>
+            <div class="button-container">
+              <button id="paper-cups-1" class="secondary-btn inventory-btn">
+                $1.80 for 25 qty
+              </button>
+              <button id="paper-cups-2" class="secondary-btn inventory-btn">
+                $3.30 for 50 qty
+              </button>
+              <button id="paper-cups-3" class="secondary-btn inventory-btn">
+                $6 for 100 qty
+              </button>
+            </div>
           </div>
-          <div>
-            <p>Buy more inventory here:</p>
-            <div id="inventory-btns">
-              <div class="button-container">
-                <button id="paper-cups-1" class="secondary-btn inventory-btn">
-                  $1.80 for 25 cups
-                </button>
-                <button id="paper-cups-2" class="secondary-btn inventory-btn">
-                  $3.30 for 50 cups
-                </button>
-                <button id="paper-cups-3" class="secondary-btn inventory-btn">
-                  $6 for 100 cups
-                </button>
-              </div>
 
-              <div class="button-container">
-                <button id="lemon-1" class="secondary-btn inventory-btn">
-                  $7.90 for 10 lemons
-                </button>
-                <button id="lemon-2" class="secondary-btn inventory-btn">
-                  $22.20 for 30 lemons
-                </button>
-                <button id="lemon-3" class="secondary-btn inventory-btn">
-                  $50.50 for 75 lemons
-                </button>
-              </div>
+          <div class="inv-buy-more-container" id="day-start-lemons">
+            <h2>Lemon x <span id="lemon-qty">x</span></h2>
+            <p>Buy more:</p>
+            <div class="button-container">
+              <button id="lemon-1" class="secondary-btn inventory-btn">
+                $7.90 for 10 qty
+              </button>
+              <button id="lemon-2" class="secondary-btn inventory-btn">
+                $22.20 for 30 qty
+              </button>
+              <button id="lemon-3" class="secondary-btn inventory-btn">
+                $50.50 for 75 qty
+              </button>
+            </div>
+          </div>
 
-              <div class="button-container">
-                <button id="sugar-1" class="secondary-btn inventory-btn">
-                  $3.90 for 30 packets
-                </button>
-                <button id="sugar-2" class="secondary-btn inventory-btn">
-                  $8.40 for 75 packets
-                </button>
-                <button id="sugar-3" class="secondary-btn inventory-btn">
-                  $13.30 for 150 packets
-                </button>
-              </div>
+          <div class="inv-buy-more-container" id="day-start-sugar">
+            <h2>Sugar x <span id="sugar-qty">x</span></h2>
+            <p>Buy more:</p>
+            <div class="button-container">
+              <button id="sugar-1" class="secondary-btn inventory-btn">
+                $3.90 for 30 qty
+              </button>
+              <button id="sugar-2" class="secondary-btn inventory-btn">
+                $8.40 for 75 qty
+              </button>
+              <button id="sugar-3" class="secondary-btn inventory-btn">
+                $13.30 for 150 qty
+              </button>
+            </div>
+          </div>
 
-              <div class="button-container">
-                <button id="ice-cubes-1" class="secondary-btn inventory-btn">
-                  $2.50 for 100 cubes
-                </button>
-                <button id="ice-cubes-2" class="secondary-btn inventory-btn">
-                  $5.30 for 250 cubes
-                </button>
-                <button id="ice-cubes-3" class="secondary-btn inventory-btn">
-                  $13 for 1000 cubes
-                </button>
-              </div>
+          <div class="inv-buy-more-container" id="day-start-sugar">
+            <h2>Ice cubes x <span id="ice-cubes-qty">x</span></h2>
+            <p>Buy more:</p>
+            <div class="button-container">
+              <button id="ice-cubes-1" class="secondary-btn inventory-btn">
+                $2.50 for 100 qty
+              </button>
+              <button id="ice-cubes-2" class="secondary-btn inventory-btn">
+                $5.30 for 250 qty
+              </button>
+              <button id="ice-cubes-3" class="secondary-btn inventory-btn">
+                $13 for 1000 qty
+              </button>
             </div>
           </div>
         </div>
         <div id="price-per-cup">
-          <label for="price-input">Price per cup</label>
+          <label for="price-input">Price per cup: </label>
           <input type="number" step="0.1" id="price-input" />
         </div>
       </div>
-      <button id="open-shop-btn">Open shop!</button>
+      <button class="main-btn" id="open-shop-btn">Open shop!</button>
     </div>
 
     <!-- Recipe screen -->
