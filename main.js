@@ -7,7 +7,7 @@ import {
   toggleEndGameToStartGame,
 } from "./toggleScreen.js";
 import { startNewDay } from "./startNewDay.js";
-import { simulateDay } from "./simulation.js";
+import { simulationResult, simulationAnimation } from "./simulation.js";
 
 // Declare Variables
 let day = 0;
@@ -164,12 +164,13 @@ $(() => {
   $("#open-shop-btn").on("click", () => {
     console.log(typeof price);
     toggleDayStartToSimulation();
-    simulateDay(weather, temperature, price);
+    simulationResult(weather, temperature, price);
+    simulationAnimation(price);
+    // clearResultArray();
   });
 
   // Event listeners on day-simulation-screen
   $("#close-shop-btn").on("click", () => {
-    $("img").remove();
     toggleSimulationToDayEnd();
 
     if (day === 7) {
