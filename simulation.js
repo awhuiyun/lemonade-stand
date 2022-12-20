@@ -8,10 +8,13 @@ import {
   Human,
   humanArray,
   CANVAS_WIDTH,
+  resetGameframe,
 } from "./animation_files/animateHuman.js";
 
-// Result Array
+// Declaring supporting variables
 const resultArray = [];
+let boughtCount = 0;
+let didNotBuyCount = 0;
 
 // Function to simulate day
 function simulationResult(weather, temperature, price) {
@@ -28,10 +31,6 @@ function simulationResult(weather, temperature, price) {
     inventory.sugar,
     inventory.iceCubes
   );
-
-  // Count of customers who bought and did not buy
-  let boughtCount = 0;
-  let didNotBuyCount = 0;
 
   // Simulate if each customer buy or did not buy
   for (let i = 1; i <= numOfCustomers; i++) {
@@ -64,8 +63,37 @@ async function simulationAnimation(price) {
     // delay
     await delay(500);
 
+    // Declare variable for new human instance
+    let human;
+    const option = Math.floor(Math.random() * 2); // Returns 0 or 1
+
     // Customer buys a cup
     if (resultArray[i] === "Yes") {
+      // Animate
+      if (option === 0) {
+        human = new Human(
+          "LTR",
+          "../images/humanLeftToRight.png",
+          0,
+          0,
+          "Yes",
+          2,
+          4
+        );
+      } else {
+        human = new Human(
+          "RTL",
+          "../images/humanRightToLeft.png",
+          4,
+          CANVAS_WIDTH * 0.95,
+          "Yes",
+          2,
+          4
+        );
+      }
+
+      humanArray.push(human);
+
       // Update inventory and cash balance
       inventory.paperCups = inventory.paperCups - recipe.paperCups;
       inventory.lemon = inventory.lemon - recipe.lemon;
@@ -73,35 +101,39 @@ async function simulationAnimation(price) {
       inventory.iceCubes = inventory.iceCubes - recipe.iceCubes;
       setCash(cash + price);
 
-      // Update DOM
-      $(".paper-cups-qty").text(inventory.paperCups);
-      $(".lemon-qty").text(inventory.lemon);
-      $(".sugar-qty").text(inventory.sugar);
-      $(".ice-cubes-qty").text(inventory.iceCubes);
-      $(".cash").text(cash);
-
-      // Animate
-      const humanLtr = new Human(
-        "LTR",
-        "../images/humanLeftToRight.png",
-        0,
-        0,
-        2,
-        4
-      );
-      humanArray.push(humanLtr);
-      console.log("Yes");
+      // Update DOM after 16 seconds
+      setInterval(() => {
+        $(".paper-cups-qty").text(inventory.paperCups);
+        $(".lemon-qty").text(inventory.lemon);
+        $(".sugar-qty").text(inventory.sugar);
+        $(".ice-cubes-qty").text(inventory.iceCubes);
+        $(".cash").text(cash);
+      }, 9500);
+      // Customer does not buy a cup
     } else {
-      const humanRtl = new Human(
-        "RTL",
-        "../images/humanRightToLeft.png",
-        4,
-        CANVAS_WIDTH * 0.95,
-        2,
-        4
-      );
-      humanArray.push(humanRtl);
-      console.log("No");
+      // if (option === 0) {
+      //   human = new Human(
+      //     "LTR",
+      //     "../images/humanLeftToRight.png",
+      //     0,
+      //     0,
+      //     "No",
+      //     2,
+      //     4
+      //   );
+      // } else {
+      //   human = new Human(
+      //     "RTL",
+      //     "../images/humanRightToLeft.png",
+      //     4,
+      //     CANVAS_WIDTH * 0.95,
+      //     "No",
+      //     2,
+      //     4
+      //   );
+      // }
+      // humanArray.push(human);
+      console.log("no");
       // Customer does not buy a cup
     }
   }
@@ -110,6 +142,7 @@ async function simulationAnimation(price) {
 
   // Clear arrays
   humanArray.length = 0;
+  resetGameframe();
   resultArray.length = 0;
 }
 

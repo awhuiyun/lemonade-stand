@@ -10,17 +10,20 @@ $(window).on("resize", function () {
   canvas.height = window.innerHeight * 0.8;
 });
 
-// Creating a Human Left to Right class
+// Creating Human class
 class Human {
-  constructor(direction, src, frame, dx, speed, walkSpeed) {
-    // Input impacts which direction
-    this.direction = direction;
-    this.src = src;
-    this.frame = frame; // frame number its using (0-4)
+  constructor(direction, src, frame, dx, isCustomer, speed, walkSpeed) {
+    // Parameter impacts which direction
+    this.direction = direction; // LTR, RTL
+    this.src = src; // Source of image
+    this.frame = frame; // frame number its using (0-4) at start
     this.x = dx; // dx
 
-    // Input impacts speed
-    this.speed = speed; // How fast the element moves to right/left (destination speed)
+    // Parameter impacts if human pauses
+    this.isCustomer = isCustomer;
+
+    // Parameter impacts speed
+    this.speedX = speed; // How fast the element moves to right/left (destination speed)
     this.walkSpeed = walkSpeed; // How fast the human is walking (source speed)
 
     this.image = new Image();
@@ -30,25 +33,67 @@ class Human {
     this.y = CANVAS_HEIGHT * (Math.random() * (0.7 - 0.45) + 0.45); // dy
     this.width = this.spriteWidth; // dw
     this.height = this.spriteHeight; // dh
+    this.stoplocX = Math.floor(canvas.width * 0.4 + Math.random() * 400); // stopx
+    this.stoplocY = CANVAS_HEIGHT * 0.3;
+    this.speedY = (this.stoplocY - this.y) / (this.stoplocX - this.x);
   }
 
   // Updates done with each animation loop
   update() {
     // If its a
-    if (this.direction === "LTR") {
-      this.x += this.speed;
+    if (this.direction === "LTR" && this.isCustomer === "Yes") {
+      if (this.x < this.stoplocX - this.speedX) {
+        this.y += this.speedY;
+        this.x += this.speedX;
+      } else if (
+        this.x > this.stoplocX - this.speedX &&
+        this.x < this.stoplocX + this.speedX
+      ) {
+        setTimeout(() => {
+          this.x += this.speedX;
+        }, 2000);
+      } else {
+        this.x += this.speedX;
+      }
+      // Increase this.frame to make walking motion
+      if (gameFrame % this.walkSpeed === 0) {
+        this.frame > 2 ? (this.frame = 0) : this.frame++;
+      }
+    } else if (this.direction === "LTR" && this.isCustomer === "No") {
+      this.x += this.speedX;
 
       // Increase this.frame to make walking motion
       if (gameFrame % this.walkSpeed === 0) {
         this.frame > 2 ? (this.frame = 0) : this.frame++;
       }
-    } else {
-      this.x -= this.speed;
+    } else if (this.direction === "RTL" && this.isCustomer === "Yes") {
+      if (this.x > this.stoplocX + this.speedX) {
+        this.y -= this.speedY;
+        this.x -= this.speedX;
+      } else if (
+        this.x > this.stoplocX - this.speedX &&
+        this.x < this.stoplocX + this.speedX
+      ) {
+        setTimeout(() => {
+          this.x -= this.speedX;
+        }, 2000);
+      } else {
+        this.x -= this.speedX;
+      }
 
       // Increase this.frame to make walking motion
       if (gameFrame % this.walkSpeed === 0) {
         this.frame < 1 ? (this.frame = 3) : this.frame--;
       }
+    } else if (this.direction === "RTL" && this.isCustomer === "No") {
+      this.x -= this.speedX;
+
+      // Increase this.frame to make walking motion
+      if (gameFrame % this.walkSpeed === 0) {
+        this.frame < 1 ? (this.frame = 3) : this.frame--;
+      }
+    } else {
+      return;
     }
   }
 
@@ -69,19 +114,8 @@ class Human {
 }
 
 // Variables
-// const numberOfHuman = 3;
 let gameFrame = 0;
 const humanArray = [];
-
-const humanOne = new Human("LTR", "../images/humanLeftToRight.png", 0, 0, 2, 4);
-const humanTwo = new Human(
-  "RTL",
-  "../images/humanRightToLeft.png",
-  4,
-  CANVAS_WIDTH * 0.95,
-  2,
-  4
-);
 
 // Function to animate human walking left to right
 function animateHuman() {
@@ -99,4 +133,8 @@ function animateHuman() {
   requestAnimationFrame(animateHuman);
 }
 
-export { animateHuman, Human, humanArray, CANVAS_WIDTH };
+function resetGameframe() {
+  gameFrame = 0;
+}
+
+export { animateHuman, Human, humanArray, CANVAS_WIDTH, resetGameframe };
