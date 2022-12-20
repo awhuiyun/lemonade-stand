@@ -60,7 +60,7 @@ async function simulationAnimation(price) {
     await delay(1000);
 
     // Interaction with screen (append img for now)
-    const $result = $("<img>");
+    // const $result = $("<img>");
 
     // Customer buys a cup
     if (resultArray[i] === "Yes") {
@@ -77,16 +77,16 @@ async function simulationAnimation(price) {
       $(".sugar-qty").text(inventory.sugar);
       $(".ice-cubes-qty").text(inventory.iceCubes);
       $(".cash").text(cash);
-      $result.attr("src", "./images/tick.png").width("50px");
+      // $result.attr("src", "./images/tick.png").width("50px");
 
       // remove from resultArray
     } else {
       // Customer does not buy a cup
-      $result.attr("src", "./images/cross.png").width("50px");
+      // $result.attr("src", "./images/cross.png").width("50px");
     }
 
     // Append result on screen
-    $("#day-simulation-screen").append($result);
+    // $("#day-simulation-screen").append($result);
   }
   resultArray.length = 0;
 }

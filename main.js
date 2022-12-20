@@ -10,6 +10,7 @@ import { startNewDay } from "./startNewDay.js";
 import { simulationResult, simulationAnimation } from "./simulation.js";
 import { animateHumanLeftToRight } from "./animation_files/animateHumanLeftToRight.js";
 import { animateHumanRightToLeft } from "./animation_files/animateHumanRightToLeft.js";
+import { animate } from "./animation_files/animate.js";
 
 // Declare Variables
 let day = 0;
@@ -168,9 +169,7 @@ $(() => {
     toggleDayStartToSimulation();
     simulationResult(weather, temperature, price);
     simulationAnimation(price);
-    // animateHumanLeftToRight();
-    // animateHumanRightToLeft();
-    // clearResultArray();
+    animate();
   });
 
   // Event listeners on day-simulation-screen
