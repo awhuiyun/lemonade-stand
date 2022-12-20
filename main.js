@@ -8,9 +8,7 @@ import {
 } from "./toggleScreen.js";
 import { startNewDay } from "./startNewDay.js";
 import { simulationResult, simulationAnimation } from "./simulation.js";
-import { animateHumanLeftToRight } from "./animation_files/animateHumanLeftToRight.js";
-import { animateHumanRightToLeft } from "./animation_files/animateHumanRightToLeft.js";
-import { animate } from "./animation_files/animate.js";
+import { animateHuman } from "./animation_files/animateHuman.js";
 
 // Declare Variables
 let day = 0;
@@ -168,8 +166,8 @@ $(() => {
     console.log(typeof price);
     toggleDayStartToSimulation();
     simulationResult(weather, temperature, price);
+    animateHuman();
     simulationAnimation(price);
-    animate();
   });
 
   // Event listeners on day-simulation-screen

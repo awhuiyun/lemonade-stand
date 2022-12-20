@@ -4,6 +4,11 @@ import { eodReportUpdate } from "./supporting_files/updateEodReport.js";
 import { maxCupsCalculation } from "./supporting_files/maxCupsCalculation.js";
 import { delay } from "./supporting_files/delay.js";
 import { inventory, cash, setCash, recipe } from "./main.js";
+import {
+  Human,
+  humanArray,
+  CANVAS_WIDTH,
+} from "./animation_files/animateHuman.js";
 
 // Result Array
 const resultArray = [];
@@ -49,18 +54,15 @@ function simulationResult(weather, temperature, price) {
     }
   }
 
-  console.log(resultArray);
   // Update EOD report
+  console.log(resultArray);
   eodReportUpdate(boughtCount, numOfCustomers);
 }
 
 async function simulationAnimation(price) {
   for (let i = 0; i <= resultArray.length - 1; i++) {
     // delay
-    await delay(1000);
-
-    // Interaction with screen (append img for now)
-    // const $result = $("<img>");
+    await delay(500);
 
     // Customer buys a cup
     if (resultArray[i] === "Yes") {
@@ -77,17 +79,37 @@ async function simulationAnimation(price) {
       $(".sugar-qty").text(inventory.sugar);
       $(".ice-cubes-qty").text(inventory.iceCubes);
       $(".cash").text(cash);
-      // $result.attr("src", "./images/tick.png").width("50px");
 
-      // remove from resultArray
+      // Animate
+      const humanLtr = new Human(
+        "LTR",
+        "../images/humanLeftToRight.png",
+        0,
+        0,
+        2,
+        4
+      );
+      humanArray.push(humanLtr);
+      console.log("Yes");
     } else {
+      const humanRtl = new Human(
+        "RTL",
+        "../images/humanRightToLeft.png",
+        4,
+        CANVAS_WIDTH * 0.95,
+        2,
+        4
+      );
+      humanArray.push(humanRtl);
+      console.log("No");
       // Customer does not buy a cup
-      // $result.attr("src", "./images/cross.png").width("50px");
     }
-
-    // Append result on screen
-    // $("#day-simulation-screen").append($result);
   }
+  // Pop up "Close shop button"
+  $("#close-shop-btn").css("display", "block");
+
+  // Clear arrays
+  humanArray.length = 0;
   resultArray.length = 0;
 }
 
