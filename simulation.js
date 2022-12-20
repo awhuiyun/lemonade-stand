@@ -101,40 +101,30 @@ async function simulationAnimation(price) {
       inventory.iceCubes = inventory.iceCubes - recipe.iceCubes;
       setCash(cash + price);
 
-      // Update DOM after 16 seconds
-      setInterval(() => {
-        $(".paper-cups-qty").text(inventory.paperCups);
-        $(".lemon-qty").text(inventory.lemon);
-        $(".sugar-qty").text(inventory.sugar);
-        $(".ice-cubes-qty").text(inventory.iceCubes);
-        $(".cash").text(cash);
-      }, 9500);
       // Customer does not buy a cup
     } else {
-      // if (option === 0) {
-      //   human = new Human(
-      //     "LTR",
-      //     "../images/humanLeftToRight.png",
-      //     0,
-      //     0,
-      //     "No",
-      //     2,
-      //     4
-      //   );
-      // } else {
-      //   human = new Human(
-      //     "RTL",
-      //     "../images/humanRightToLeft.png",
-      //     4,
-      //     CANVAS_WIDTH * 0.95,
-      //     "No",
-      //     2,
-      //     4
-      //   );
-      // }
-      // humanArray.push(human);
-      console.log("no");
-      // Customer does not buy a cup
+      if (option === 0) {
+        human = new Human(
+          "LTR",
+          "../images/humanLeftToRight.png",
+          0,
+          0,
+          "No",
+          2,
+          4
+        );
+      } else {
+        human = new Human(
+          "RTL",
+          "../images/humanRightToLeft.png",
+          4,
+          CANVAS_WIDTH * 0.95,
+          "No",
+          2,
+          4
+        );
+      }
+      humanArray.push(human);
     }
   }
   // Pop up "Close shop button"
@@ -145,10 +135,5 @@ async function simulationAnimation(price) {
   resetGameframe();
   resultArray.length = 0;
 }
-
-// async function clearResultArray() {
-//   await simulationAnimation();
-//   return (resultArray.length = 0);
-// }
 
 export { simulationResult, simulationAnimation };

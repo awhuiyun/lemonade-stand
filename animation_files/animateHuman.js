@@ -1,3 +1,5 @@
+import { inventory, cash } from "../main.js";
+
 const canvas = document.getElementById("canvas1");
 const ctx = canvas.getContext("2d");
 
@@ -51,7 +53,18 @@ class Human {
       ) {
         setTimeout(() => {
           this.x += this.speedX;
+          $(".paper-cups-qty").text(inventory.paperCups);
+          $(".lemon-qty").text(inventory.lemon);
+          $(".sugar-qty").text(inventory.sugar);
+          $(".ice-cubes-qty").text(inventory.iceCubes);
+          $(".cash").text(cash);
         }, 2000);
+      } else if (
+        this.x >= this.stoplocX + this.speedX &&
+        this.x < CANVAS_WIDTH * 0.7
+      ) {
+        this.x += this.speedX;
+        this.y += Math.random() * (2 - 0.5 + 1) + 0.5;
       } else {
         this.x += this.speedX;
       }
@@ -76,7 +89,18 @@ class Human {
       ) {
         setTimeout(() => {
           this.x -= this.speedX;
+          $(".paper-cups-qty").text(inventory.paperCups);
+          $(".lemon-qty").text(inventory.lemon);
+          $(".sugar-qty").text(inventory.sugar);
+          $(".ice-cubes-qty").text(inventory.iceCubes);
+          $(".cash").text(cash);
         }, 2000);
+      } else if (
+        this.x <= this.stoplocX - this.speedX &&
+        this.x > CANVAS_WIDTH * 0.3
+      ) {
+        this.x -= this.speedX;
+        this.y += Math.random() * (2 - 0.5 + 1) + 0.5;
       } else {
         this.x -= this.speedX;
       }
