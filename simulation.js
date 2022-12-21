@@ -142,15 +142,15 @@ async function simulationAnimation(price) {
     }
   }
 
+  setTimeout(() => {
+    // Clear arrays
+    humanArray.splice(0, humanArray.length);
+    resetGameframe();
+    resultArray.splice(0, resultArray.length);
+  }, 15000);
+
   // Pop up "Close shop button"
   $("#close-shop-btn").css("display", "block");
-
-  // Clear arrays
-  humanArray.splice(0, humanArray.length);
-  resetGameframe();
-  resultArray.splice(0, resultArray.length);
-
-  console.log(humanArray);
 }
 
 export { simulationResult, simulationAnimation, resultArray };

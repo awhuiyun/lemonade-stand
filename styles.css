@@ -291,8 +291,8 @@ body {
   /* to center it vertically and horizontally */
   margin: 0;
   position: absolute;
-  top: 38%;
-  left: 50%;
+  bottom: 4%;
+  right: 1%;
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 }
