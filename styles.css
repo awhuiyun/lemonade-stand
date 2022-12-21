@@ -90,6 +90,40 @@ body {
   left: 20%;
 }
 
+/*********** Styles for tooltip sections ***********/
+.tooltip {
+  position: absolute;
+  background-color: var(--yellow);
+  width: 15vw;
+  height: 15vh;
+  text-align: center;
+  border-radius: 8%;
+  border: black 3px solid;
+}
+
+#weather-report-section {
+  top: 27vh;
+  left: 25vw;
+  z-index: 2;
+  font-size: 2.5vh;
+}
+
+#recipe-section {
+  top: 27vh;
+  left: 35vw;
+  z-index: 2;
+  font-size: 2vh;
+}
+
+#help-section {
+  width: 20vw;
+  height: 20vh;
+  top: 27vh;
+  left: 41vw;
+  z-index: 2;
+  font-size: 2vh;
+}
+
 /*********** Styles for day start screen ***********/
 #day-start-screen {
   background-color: var(--light-yellow);
@@ -132,11 +166,6 @@ body {
     2px 2px black, -2px -2px black, 2px -2px black, -2px 2px black;
   color: var(--light-yellow);
   margin: 2vh 5vw 0 0;
-}
-
-#weather-report-section {
-  /* Hide weather section */
-  display: none;
 }
 
 #day-start-screen-cash-bal {
@@ -255,11 +284,17 @@ body {
 
 #close-shop-btn {
   position: absolute;
-  right: 4%;
-  bottom: 4%;
   font-size: 4vh;
   width: 12vw;
   height: 6vh;
+  z-index: 30;
+  /* to center it vertically and horizontally */
+  margin: 0;
+  position: absolute;
+  top: 38%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }
 
 #dashboard-details {
@@ -350,7 +385,7 @@ body {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  width: 18vw;
+  width: 20vw;
 }
 
 #details-value p {
@@ -374,4 +409,65 @@ body {
   right: 1%;
   width: 20vw;
   height: 8vh;
+}
+
+/*********** Styles for end game screen ***********/
+#end-game-screen {
+  background-color: var(--light-yellow);
+  width: 80vw;
+  height: 80vh;
+  padding: 20px;
+  /* to center it vertically and horizontally */
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+#end-game-screen h1 {
+  position: relative;
+  font-size: 6vh;
+  text-align: center;
+  margin: 0 0 1vh 0;
+  color: var(--bright-yellow);
+  text-shadow: 2px 0 black, -2px 0 black, 0 2px black, 0 -2px black,
+    1px 1px black, -1px -1px black, 1px -1px black, -1px 1px black;
+}
+
+#end-game-details {
+  margin: 0;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+#end-game-details div {
+  font-size: 3.5vh;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  width: 20vw;
+}
+
+.end-game-details-type {
+  flex-grow: 2;
+  margin: 2vh 0;
+}
+
+.end-game-details-val {
+  align-items: flex-start;
+  margin: 2vh 0;
+}
+
+#replay-btn {
+  position: absolute;
+  right: 4%;
+  bottom: 4%;
+  font-size: 4vh;
+  width: 12vw;
+  height: 6vh;
 }

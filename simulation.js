@@ -3,12 +3,21 @@ import { randomNumOfCustomers } from "./supporting_files/randomisation.js";
 import { eodReportUpdate } from "./supporting_files/updateEodReport.js";
 import { maxCupsCalculation } from "./supporting_files/maxCupsCalculation.js";
 import { delay } from "./supporting_files/delay.js";
-import { inventory, cash, setCash, recipe } from "./main.js";
+import {
+  inventory,
+  cash,
+  setCash,
+  recipe,
+  balanceSheet,
+  humanArray,
+} from "./main.js";
 import {
   Human,
-  humanArray,
   CANVAS_WIDTH,
   resetGameframe,
+  inventorySimulation,
+  cashSimualtion,
+  setCashSimulation,
 } from "./animation_files/animateHuman.js";
 
 // Declaring supporting variables
@@ -18,6 +27,10 @@ let didNotBuyCount = 0;
 
 // Function to simulate day
 function simulationResult(weather, temperature, price) {
+  // Clear boughtCount and didNotBuyCount variable
+  boughtCount = 0;
+  didNotBuyCount = 0;
+
   // Calculate probability of purchase
   const probability = probabilityOfPurchase(weather, temperature, price);
 
@@ -40,6 +53,12 @@ function simulationResult(weather, temperature, price) {
       // Customer buys a cup
       if (randomNum <= probability) {
         boughtCount++;
+        inventory.paperCups = inventory.paperCups - recipe.paperCups;
+        inventory.lemon = inventory.lemon - recipe.lemon;
+        inventory.sugar = inventory.sugar - recipe.sugar;
+        inventory.iceCubes = inventory.iceCubes - recipe.iceCubes;
+        balanceSheet.sales += price;
+        setCash(cash + price);
         resultArray.push("Yes");
       } else {
         // Customer does not buy a cup
@@ -54,13 +73,15 @@ function simulationResult(weather, temperature, price) {
   }
 
   // Update EOD report
-  console.log(resultArray);
   eodReportUpdate(boughtCount, numOfCustomers);
+  console.log("prev", humanArray);
 }
 
 async function simulationAnimation(price) {
+  console.log("start", humanArray);
+
   for (let i = 0; i <= resultArray.length - 1; i++) {
-    // delay
+    delay;
     await delay(500);
 
     // Declare variable for new human instance
@@ -94,13 +115,6 @@ async function simulationAnimation(price) {
 
       humanArray.push(human);
 
-      // Update inventory and cash balance
-      inventory.paperCups = inventory.paperCups - recipe.paperCups;
-      inventory.lemon = inventory.lemon - recipe.lemon;
-      inventory.sugar = inventory.sugar - recipe.sugar;
-      inventory.iceCubes = inventory.iceCubes - recipe.iceCubes;
-      setCash(cash + price);
-
       // Customer does not buy a cup
     } else {
       if (option === 0) {
@@ -127,13 +141,16 @@ async function simulationAnimation(price) {
       humanArray.push(human);
     }
   }
+
   // Pop up "Close shop button"
   $("#close-shop-btn").css("display", "block");
 
   // Clear arrays
-  humanArray.length = 0;
+  humanArray.splice(0, humanArray.length);
   resetGameframe();
-  resultArray.length = 0;
+  resultArray.splice(0, resultArray.length);
+
+  console.log(humanArray);
 }
 
-export { simulationResult, simulationAnimation };
+export { simulationResult, simulationAnimation, resultArray };

@@ -5,7 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Lemonade Stand</title>
+    <!-- CSS styles.css file -->
     <link rel="stylesheet" href="styles.css" />
+    <!-- Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -40,12 +42,33 @@
       </div>
     </div>
 
-    <!-- Instructions screen -->
-    <div id="instructions-screen" style="display: none" class="screen">
-      <h1>Instructions</h1>
+    <!-- Weather screen -->
+    <div class="tooltip" id="weather-report-section" style="display: none">
       <p>
-        Maximise profit in 7 days. <br />
-        Make inventory and pricing decisions.
+        Daily forecast: <br />
+        Temperature: <span id="temp">x</span>°C <br />Weather:
+        <span id="weather">x</span>
+      </p>
+    </div>
+
+    <!-- Recipe screen -->
+    <div class="tooltip" id="recipe-section" style="display: none">
+      <p>
+        Recipe per cup: <br />
+        1x Paper Cup <br />1x Lemon <br />
+        2x Sugar <br />
+        8x Ice cubes <br />
+      </p>
+    </div>
+
+    <!-- Tips screen -->
+    <div class="tooltip" id="help-section" style="display: none">
+      <p>
+        Manage your inventory well or you'll go out of business!<br />If weather
+        is bad and your price is high, don't expect more than 15-20 customers.
+        If weather is good and your prices are resonable, expect 70-85.
+        <br /><br />
+        Your paper cups and sugar won't go bad but lemons and ice spoil daily!
       </p>
     </div>
 
@@ -56,11 +79,7 @@
         <p id="inventory-pricing-header">Inventory & Pricing</p>
         <p id="weather-header">Weather Report</p>
         <p id="recipe-header">Recipe</p>
-        <p id="tips-header">Tips</p>
-      </div>
-      <div id="weather-report-section">
-        <p>Temperature: <span id="temp">x</span>°C</p>
-        <p>Weather: <span id="weather">x</span></p>
+        <p id="tips-header">Help</p>
       </div>
       <div id="inventory-pricing-section">
         <p id="day-start-screen-cash-bal">
@@ -139,22 +158,6 @@
       <button class="main-btn" id="open-shop-btn">Open shop!</button>
     </div>
 
-    <!-- Recipe screen -->
-    <div id="recipe-screen" style="display: none" class="tab">
-      <h1>Recipe</h1>
-      <ul>
-        <li>1 paper cup</li>
-        <li>1 lemon</li>
-        <li>2 packets of sugar</li>
-        <li>8 ice cubes</li>
-      </ul>
-    </div>
-
-    <!-- Tips  -->
-    <div id="tip-screen" style="display: none" class="tab">
-      <h1>Tips</h1>
-    </div>
-
     <!-- day_simulation screen -->
     <div id="day-simulation-screen" style="display: none" class="screen">
       <div id="day-simulation-dashboard"></div>
@@ -171,11 +174,11 @@
       />
       <div id="dashboard-details">
         <h1>Day <span class="day-num">x</span></h1>
-        <p>Cash bal: $ <span class="cash">x</span></p>
-        <p>Paper cups: <span class="paper-cups-qty">x</span></p>
-        <p>Lemon: <span class="lemon-qty">x</span></p>
-        <p>Sugar: <span class="sugar-qty">x</span></p>
-        <p>Ice cubes: <span class="ice-cubes-qty">x</span></p>
+        <p>Cash bal: $ <span id="cash-dashboard">x</span></p>
+        <p>Paper cups: <span id="paper-cups-qty-dashboard">x</span></p>
+        <p>Lemon: <span id="lemon-qty-dashboard">x</span></p>
+        <p>Sugar: <span id="sugar-qty-dashboard">x</span></p>
+        <p>Ice cubes: <span id="ice-cubes-qty-dashboard">x</span></p>
       </div>
       <button class="main-btn" id="close-shop-btn" style="display: none">
         Close shop!
@@ -188,7 +191,6 @@
       <p id="sales-details">
         You managed to sell <span id="cups-sold">x</span> cups to
         <span id="num-of-customers">x</span> potential customers!
-        <br />Considering the weather, this is <span id="result">great</span>!
       </p>
       <div id="report-details">
         <div id="details-type">
@@ -202,7 +204,7 @@
             <p class="details-color">x <span class="paper-cups-qty">x</span></p>
           </div>
           <div>
-            <p class="details-value-name">Lemon</p>
+            <p class="details-value-name">Lemon (wastage)</p>
             <p class="details-color">x <span class="lemon-qty">x</span></p>
           </div>
           <div>
@@ -210,7 +212,7 @@
             <p class="details-color">x <span class="sugar-qty">x</span></p>
           </div>
           <div>
-            <p class="details-value-name">Ice cubes</p>
+            <p class="details-value-name">Ice cubes (wastage)</p>
             <p class="details-color">x <span class="ice-cubes-qty">x</span></p>
           </div>
         </div>
@@ -223,11 +225,25 @@
     <!-- end screen -->
     <div id="end-game-screen" style="display: none" class="screen">
       <h1>End of season report</h1>
-      <p>Total income:</p>
-      <p>Total expenses:</p>
-      <p>Liquidated inventory value:</p>
-      <p>Net profit/loss:</p>
-      <button id="replay-btn">Play again?</button>
+      <div id="end-game-details">
+        <div>
+          <p class="end-game-details-type">Intital Cash Balance:</p>
+          <p class="end-game-details-val">$100</span></p>
+        </div>
+        <div>
+          <p class="end-game-details-type">Total Cost:</p>
+          <p class="end-game-details-val">$ <span id="total-expenses">x</span></p>
+        </div>
+        <div>
+          <p class="end-game-details-type">Total Sales:</p>
+          <p class="end-game-details-val">$<span class="total-sales">x</span></p>
+        </div>
+        <div>
+          <p class="end-game-details-type">Final Cash Balance:</p>
+          <p class="end-game-details-val">$<span class="cash">x</span></p>
+        </div>
+      </div>
+      <button class="main-btn" id="replay-btn">Play again?</button>
     </div>
 
     <!-- jQuery & js file-->
@@ -236,6 +252,8 @@
       integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
       crossorigin="anonymous"
     ></script>
+
+    <!-- JS file -->
     <script type="module" src="main.js"></script>
   </body>
 </html>

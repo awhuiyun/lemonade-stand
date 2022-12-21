@@ -60,10 +60,6 @@ function probabilityOfPurchase(weather, temperature, price) {
   const priceFactor = priceProbability(price);
   const probability = weatherFactor * temperatureFactor * priceFactor;
 
-  // console.log("Its going to " + weather + " : " + weatherFactor);
-  // console.log("Its going to be " + temperature + "°C : " + temperatureFactor);
-  // console.log("Price is: $" + price + " : " + priceFactor);
-  // console.log("Probability of purchase is: " + probability);
   return probability;
 }
 

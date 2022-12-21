@@ -1,7 +1,19 @@
-import { inventory, cash } from "../main.js";
+import { price, recipe, humanArray } from "../main.js";
 
 const canvas = document.getElementById("canvas1");
 const ctx = canvas.getContext("2d");
+
+// Inventory and cash variables
+const inventorySimulation = {
+  paperCups: 0,
+  lemon: 0,
+  sugar: 0,
+  iceCubes: 0,
+};
+let cashSimualtion = 0;
+function setCashSimulation(value) {
+  cashSimualtion = value;
+}
 
 // Setting dynamic canvas width and height
 let CANVAS_WIDTH = (canvas.width = window.innerWidth);
@@ -23,6 +35,7 @@ class Human {
 
     // Parameter impacts if human pauses
     this.isCustomer = isCustomer;
+    this.updatedDOM = false;
 
     // Parameter impacts speed
     this.speedX = speed; // How fast the element moves to right/left (destination speed)
@@ -51,13 +64,28 @@ class Human {
         this.x > this.stoplocX - this.speedX &&
         this.x < this.stoplocX + this.speedX
       ) {
+        // Update inventory and cash balance
         setTimeout(() => {
+          // Update human location
           this.x += this.speedX;
-          $(".paper-cups-qty").text(inventory.paperCups);
-          $(".lemon-qty").text(inventory.lemon);
-          $(".sugar-qty").text(inventory.sugar);
-          $(".ice-cubes-qty").text(inventory.iceCubes);
-          $(".cash").text(cash);
+
+          // Update inventory and cash balance
+          if (this.updatedDOM === false) {
+            inventorySimulation.paperCups -= recipe.paperCups;
+            inventorySimulation.lemon -= recipe.lemon;
+            inventorySimulation.sugar -= recipe.sugar;
+            inventorySimulation.iceCubes -= recipe.iceCubes;
+            cashSimualtion += price;
+            this.updatedDOM = true;
+          }
+
+          // Update DOM
+          // Create another class for simulation
+          $("#paper-cups-qty-dashboard").text(inventorySimulation.paperCups);
+          $("#lemon-qty-dashboard").text(inventorySimulation.lemon);
+          $("#sugar-qty-dashboard").text(inventorySimulation.sugar);
+          $("#ice-cubes-qty-dashboard").text(inventorySimulation.iceCubes);
+          $("#cash-dashboard").text(cashSimualtion.toFixed(2));
         }, 2000);
       } else if (
         this.x >= this.stoplocX + this.speedX &&
@@ -88,12 +116,26 @@ class Human {
         this.x < this.stoplocX + this.speedX
       ) {
         setTimeout(() => {
+          // Update human location
           this.x -= this.speedX;
-          $(".paper-cups-qty").text(inventory.paperCups);
-          $(".lemon-qty").text(inventory.lemon);
-          $(".sugar-qty").text(inventory.sugar);
-          $(".ice-cubes-qty").text(inventory.iceCubes);
-          $(".cash").text(cash);
+
+          // Update inventory and cash balance
+          if (this.updatedDOM === false) {
+            inventorySimulation.paperCups -= recipe.paperCups;
+            inventorySimulation.lemon -= recipe.lemon;
+            inventorySimulation.sugar -= recipe.sugar;
+            inventorySimulation.iceCubes -= recipe.iceCubes;
+            cashSimualtion += price;
+            this.updatedDOM = true;
+          }
+
+          // Update DOM
+          // Create another class for simulation
+          $("#paper-cups-qty-dashboard").text(inventorySimulation.paperCups);
+          $("#lemon-qty-dashboard").text(inventorySimulation.lemon);
+          $("#sugar-qty-dashboard").text(inventorySimulation.sugar);
+          $("#ice-cubes-qty-dashboard").text(inventorySimulation.iceCubes);
+          $("#cash-dashboard").text(cashSimualtion.toFixed(2));
         }, 2000);
       } else if (
         this.x <= this.stoplocX - this.speedX &&
@@ -139,7 +181,6 @@ class Human {
 
 // Variables
 let gameFrame = 0;
-const humanArray = [];
 
 // Function to animate human walking left to right
 function animateHuman() {
@@ -161,4 +202,13 @@ function resetGameframe() {
   gameFrame = 0;
 }
 
-export { animateHuman, Human, humanArray, CANVAS_WIDTH, resetGameframe };
+export {
+  animateHuman,
+  Human,
+  humanArray,
+  CANVAS_WIDTH,
+  resetGameframe,
+  inventorySimulation,
+  setCashSimulation,
+  cashSimualtion,
+};

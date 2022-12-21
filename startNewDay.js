@@ -29,7 +29,7 @@ function startNewDay() {
   $(".day-num").text(day);
   $("#temp").text(temperature);
   $("#weather").text(weather);
-  $(".cash").text(cash);
+  $(".cash").text(cash.toFixed(2));
   $(".paper-cups-qty").text(inventory.paperCups);
   $(".lemon-qty").text(inventory.lemon);
   $(".sugar-qty").text(inventory.sugar);

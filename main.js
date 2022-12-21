@@ -7,8 +7,18 @@ import {
   toggleEndGameToStartGame,
 } from "./toggleScreen.js";
 import { startNewDay } from "./startNewDay.js";
-import { simulationResult, simulationAnimation } from "./simulation.js";
-import { animateHuman } from "./animation_files/animateHuman.js";
+import {
+  simulationResult,
+  simulationAnimation,
+  resultArray,
+} from "./simulation.js";
+import {
+  animateHuman,
+  resetGameframe,
+  inventorySimulation,
+  setCashSimulation,
+  cashSimualtion,
+} from "./animation_files/animateHuman.js";
 
 // Declare Variables
 let day = 0;
@@ -28,6 +38,11 @@ const recipe = {
   sugar: 2,
   iceCubes: 8,
 };
+const balanceSheet = {
+  cost: 0,
+  sales: 0,
+};
+const humanArray = [];
 
 // Functions to edit variables
 function setDay(value) {
@@ -47,18 +62,43 @@ function setPrice(value) {
 }
 
 function setCash(value) {
-  cash = value;
+  cash = parseFloat((Math.round(value * 100) / 100).toFixed(2));
 }
 
 // Link JS to HTML file
 $(() => {
   // Event listeners on start-game-screen
+  // Start game
   $("#start-game-btn").on("click", () => {
     toggleStartGameToDayStart();
     startNewDay();
   });
 
+  // Switch to instruction page
+  $("#instructions-btn").on("click", () => {});
+
   // Event listeners on day-start-screen
+  // Tooltip for headers
+  $("#day-start-screen-header").on("mouseover", (e) => {
+    if ($(e.target).attr("id") === "weather-header") {
+      $("#weather-report-section").css("display", "block");
+    } else if ($(e.target).attr("id") === "recipe-header") {
+      $("#recipe-section").css("display", "block");
+    } else if ($(e.target).attr("id") === "tips-header") {
+      $("#help-section").css("display", "block");
+    }
+  });
+
+  $("#day-start-screen-header").on("mouseout", (e) => {
+    if ($(e.target).attr("id") === "weather-header") {
+      $("#weather-report-section").css("display", "none");
+    } else if ($(e.target).attr("id") === "recipe-header") {
+      $("#recipe-section").css("display", "none");
+    } else if ($(e.target).attr("id") === "tips-header") {
+      $("#help-section").css("display", "none");
+    }
+  });
+
   // Inventory buttons
   $(".button-container").on("click", (e) => {
     const option = $(e.target).attr("id");
@@ -80,7 +120,7 @@ $(() => {
       case "paper-cups-3":
         item = "paperCups";
         qty = 100;
-        cashSpent = 6;
+        cashSpent = 6.0;
         break;
       case "lemon-1":
         item = "lemon";
@@ -132,7 +172,9 @@ $(() => {
     if (cashSpent <= cash) {
       // Cash balance
       cash -= cashSpent;
-      $(".cash").text(cash);
+      cash = parseFloat((Math.round(cash * 100) / 100).toFixed(2));
+      balanceSheet.cost += cashSpent;
+      $(".cash").text(cash.toFixed(2));
 
       // Inventory balance
       inventory[item] = inventory[item] + qty;
@@ -158,20 +200,36 @@ $(() => {
 
   // Price input
   $("#price-input").on("change", (e) => {
-    price = parseInt($(e.target).val());
+    price = parseFloat($(e.target).val());
   });
 
   // Open shop button
   $("#open-shop-btn").on("click", () => {
-    console.log(typeof price);
+    // Update simulation cash and inventory variables & DOM
+    setCashSimulation(cash);
+    inventorySimulation.paperCups = inventory.paperCups;
+    inventorySimulation.lemon = inventory.lemon;
+    inventorySimulation.sugar = inventory.sugar;
+    inventorySimulation.iceCubes = inventory.iceCubes;
+    $("#paper-cups-qty-dashboard").text(inventorySimulation.paperCups);
+    $("#lemon-qty-dashboard").text(inventorySimulation.lemon);
+    $("#sugar-qty-dashboard").text(inventorySimulation.sugar);
+    $("#ice-cubes-qty-dashboard").text(inventorySimulation.iceCubes);
+    $("#cash-dashboard").text(cashSimualtion.toFixed(2));
+
+    // Run demand simulation
     toggleDayStartToSimulation();
     simulationResult(weather, temperature, price);
-    animateHuman();
     simulationAnimation(price);
+    animateHuman();
   });
 
   // Event listeners on day-simulation-screen
   $("#close-shop-btn").on("click", () => {
+    // Hide close shop button
+    $("#close-shop-btn").css("display", "none");
+
+    // Toggle page to next screen
     toggleSimulationToDayEnd();
 
     if (day === 7) {
@@ -182,9 +240,17 @@ $(() => {
   // Event listeners on day-end-screen
   $("#prep-next-day-btn").on("click", () => {
     if (day < 7) {
+      // Expire lemons and ice
+      inventory.lemon = 0;
+      inventory.iceCubes = 0;
+
+      // Toggle
       toggleDayEndToDayStart();
       startNewDay();
     } else {
+      $("#total-expenses").text(balanceSheet.cost);
+      $("#total-sales").text(balanceSheet.sales);
+      $(".cash").text(cash.toFixed(2));
       toggleDayEndToEndGame();
     }
   });
@@ -204,9 +270,11 @@ export {
   cash,
   inventory,
   recipe,
+  balanceSheet,
   setDay,
   setWeather,
   setTemperature,
   setPrice,
   setCash,
+  humanArray,
 };
