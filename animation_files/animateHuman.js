@@ -2,6 +2,7 @@ import { price, recipe, humanArray } from "../main.js";
 
 const canvas = document.getElementById("canvas1");
 const ctx = canvas.getContext("2d");
+let animation;
 
 // Inventory and cash variables
 const inventorySimulation = {
@@ -165,6 +166,10 @@ class Human {
 
   // Drawing the human
   draw() {
+    if (animation) {
+      window.cancelAnimationFrame(animation);
+    }
+
     ctx.drawImage(
       this.image, // image link
       this.frame * this.spriteWidth, // sx
@@ -195,7 +200,8 @@ function animateHuman() {
 
   // Calling the animate function again to create a loop
   gameFrame++;
-  requestAnimationFrame(animateHuman);
+  animation = window.requestAnimationFrame(animateHuman);
+  // requestAnimationFrame(animateHuman);
 }
 
 function resetGameframe() {
