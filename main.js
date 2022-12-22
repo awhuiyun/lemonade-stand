@@ -264,8 +264,8 @@ $(() => {
       toggleDayEndToDayStart();
       startNewDay();
     } else {
-      $("#total-expenses").text(balanceSheet.cost);
-      $("#total-sales").text(balanceSheet.sales);
+      $("#total-expenses").text(balanceSheet.cost.toFixed(2));
+      $("#total-sales").text(balanceSheet.sales.toFixed(2));
       $(".cash").text(cash.toFixed(2));
       toggleDayEndToEndGame();
     }

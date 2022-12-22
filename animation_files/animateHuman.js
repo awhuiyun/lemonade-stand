@@ -49,7 +49,7 @@ class Human {
     this.y = CANVAS_HEIGHT * (Math.random() * (0.7 - 0.45) + 0.45); // dy
     this.width = this.spriteWidth; // dw
     this.height = this.spriteHeight; // dh
-    this.stoplocX = Math.floor(canvas.width * 0.4 + Math.random() * 400); // stopx
+    this.stoplocX = Math.floor(canvas.width * 0.4 + Math.random() * 350); // stopx
     this.stoplocY = CANVAS_HEIGHT * 0.3;
     this.speedY = (this.stoplocY - this.y) / (this.stoplocX - this.x);
   }
