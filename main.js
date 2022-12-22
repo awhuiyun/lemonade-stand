@@ -142,8 +142,8 @@ $(() => {
         break;
       case "lemon-3":
         item = "lemon";
-        qty = 75;
-        cashSpent = 50.5;
+        qty = 70;
+        cashSpent = 46.8;
         break;
       case "sugar-1":
         item = "sugar";
@@ -162,17 +162,17 @@ $(() => {
         break;
       case "ice-cubes-1":
         item = "iceCubes";
-        qty = 100;
+        qty = 120;
         cashSpent = 2.5;
         break;
       case "ice-cubes-2":
         item = "iceCubes";
-        qty = 250;
+        qty = 300;
         cashSpent = 5.3;
         break;
       case "ice-cubes-3":
         item = "iceCubes";
-        qty = 1000;
+        qty = 600;
         cashSpent = 13;
         break;
     }
