@@ -1,10 +1,19 @@
-import { price, recipe, humanArray } from "../main.js";
+import { price, recipe } from "./main.js";
 
 const canvas = document.getElementById("canvas1");
 const ctx = canvas.getContext("2d");
 let animation;
 
-// Inventory and cash variables
+// Setting dynamic canvas width and height
+let CANVAS_WIDTH = (canvas.width = window.innerWidth);
+let CANVAS_HEIGHT = (canvas.height = window.innerHeight * 0.8);
+
+$(window).on("resize", function () {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight * 0.8;
+});
+
+// Inventory and cash variables used in day-simulation screen (to update DOM)
 const inventorySimulation = {
   paperCups: 0,
   lemon: 0,
@@ -16,56 +25,53 @@ function setCashSimulation(value) {
   cashSimualtion = value;
 }
 
-// Setting dynamic canvas width and height
-let CANVAS_WIDTH = (canvas.width = window.innerWidth);
-let CANVAS_HEIGHT = (canvas.height = window.innerHeight * 0.8);
-
-$(window).on("resize", function () {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight * 0.8;
-});
+// Animation variables
+let gameFrame = 0;
+const humanArray = [];
 
 // Creating Human class
 class Human {
   constructor(direction, src, frame, dx, isCustomer, speed, walkSpeed) {
-    // Parameter impacts which direction
+    // Parameters that impact which direction element moves
     this.direction = direction; // LTR, RTL
     this.src = src; // Source of image
-    this.frame = frame; // frame number its using (0-4) at start
+    this.frame = frame; // frame number (of spritesheet) its using (0 or 4) at start of animation
     this.x = dx; // dx
 
-    // Parameter impacts if human pauses
-    this.isCustomer = isCustomer;
-    this.updatedDOM = false;
+    // Parameters that impact if element moves up to the stand to pause
+    this.isCustomer = isCustomer; // Yes, No
+    this.updatedDOM = false; // Yes, No; Indication of whether the cash and inventory balance has been updated upon sale
 
-    // Parameter impacts speed
-    this.speedX = speed; // How fast the element moves to right/left (destination speed)
-    this.walkSpeed = walkSpeed; // How fast the human is walking (source speed)
+    // Parameters that impact speed of animation
+    this.speedX = speed; // How fast the element moves along x-axis (destination speed)
+    this.walkSpeed = walkSpeed; // How fast the elements animation is (source speed)
 
+    // Fixed variables
     this.image = new Image();
-    this.image.src = this.src;
+    this.image.src = this.src; // Source of img
     this.spriteWidth = 145; // sw
     this.spriteHeight = 200; // sh
     this.y = CANVAS_HEIGHT * (Math.random() * (0.7 - 0.45) + 0.45); // dy
     this.width = this.spriteWidth; // dw
     this.height = this.spriteHeight; // dh
-    this.stoplocX = Math.floor(canvas.width * 0.4 + Math.random() * 350); // stopx
-    this.stoplocY = CANVAS_HEIGHT * 0.3;
-    this.speedY = (this.stoplocY - this.y) / (this.stoplocX - this.x);
+    this.stoplocX = Math.floor(canvas.width * 0.4 + Math.random() * 350); // x coordinate of where the element will stop to buy cup
+    this.stoplocY = CANVAS_HEIGHT * 0.3; // y coordinate of where the element will stop to buy cup
+    this.speedY = (this.stoplocY - this.y) / (this.stoplocX - this.x); // How fast element moves along y-axis (up/down)
   }
 
-  // Updates done with each animation loop
+  // Method that updates x/y coordinate of each element (called in each animation loop)
   update() {
-    // If its a
+    // Scenario 1: Element moves from Left to Right & Buys a cup
     if (this.direction === "LTR" && this.isCustomer === "Yes") {
+      // Before element reaches x-coordinate where element pauses
       if (this.x < this.stoplocX - this.speedX) {
         this.y += this.speedY;
         this.x += this.speedX;
-      } else if (
+      } // When element reaches x-coordiate to pause
+      else if (
         this.x > this.stoplocX - this.speedX &&
         this.x < this.stoplocX + this.speedX
       ) {
-        // Update inventory and cash balance
         setTimeout(() => {
           // Update human location
           this.x += this.speedX;
@@ -80,15 +86,15 @@ class Human {
             this.updatedDOM = true;
           }
 
-          // Update DOM
-          // Create another class for simulation
+          // Update DOM screen
           $("#paper-cups-qty-dashboard").text(inventorySimulation.paperCups);
           $("#lemon-qty-dashboard").text(inventorySimulation.lemon);
           $("#sugar-qty-dashboard").text(inventorySimulation.sugar);
           $("#ice-cubes-qty-dashboard").text(inventorySimulation.iceCubes);
           $("#cash-dashboard").text(cashSimualtion.toFixed(2));
         }, 2000);
-      } else if (
+      } // After the element passes the x-coordinate to pause
+      else if (
         this.x >= this.stoplocX + this.speedX &&
         this.x < CANVAS_WIDTH * 0.7
       ) {
@@ -97,22 +103,27 @@ class Human {
       } else {
         this.x += this.speedX;
       }
-      // Increase this.frame to make walking motion
+      // Update frame to make walking motion
       if (gameFrame % this.walkSpeed === 0) {
         this.frame > 2 ? (this.frame = 0) : this.frame++;
       }
-    } else if (this.direction === "LTR" && this.isCustomer === "No") {
+    } // Scenario 2: Element moves from Left to Right & Do not buy a cup
+    else if (this.direction === "LTR" && this.isCustomer === "No") {
+      // Update x-coordinate so element moves along x-axis on screen
       this.x += this.speedX;
 
-      // Increase this.frame to make walking motion
+      // Update frame to make walking motion
       if (gameFrame % this.walkSpeed === 0) {
         this.frame > 2 ? (this.frame = 0) : this.frame++;
       }
-    } else if (this.direction === "RTL" && this.isCustomer === "Yes") {
+    } // Scenario 3: Element moves from Right to Left & Buys a cup
+    else if (this.direction === "RTL" && this.isCustomer === "Yes") {
+      // Before element reaches x-coordinate where element pauses
       if (this.x > this.stoplocX + this.speedX) {
         this.y -= this.speedY;
         this.x -= this.speedX;
-      } else if (
+      } // When element reaches x-coordiate to pause
+      else if (
         this.x > this.stoplocX - this.speedX &&
         this.x < this.stoplocX + this.speedX
       ) {
@@ -130,15 +141,15 @@ class Human {
             this.updatedDOM = true;
           }
 
-          // Update DOM
-          // Create another class for simulation
+          // Update DOM screen
           $("#paper-cups-qty-dashboard").text(inventorySimulation.paperCups);
           $("#lemon-qty-dashboard").text(inventorySimulation.lemon);
           $("#sugar-qty-dashboard").text(inventorySimulation.sugar);
           $("#ice-cubes-qty-dashboard").text(inventorySimulation.iceCubes);
           $("#cash-dashboard").text(cashSimualtion.toFixed(2));
         }, 2000);
-      } else if (
+      } // After the element passes the x-coordinate to pause
+      else if (
         this.x <= this.stoplocX - this.speedX &&
         this.x > CANVAS_WIDTH * 0.3
       ) {
@@ -148,14 +159,16 @@ class Human {
         this.x -= this.speedX;
       }
 
-      // Increase this.frame to make walking motion
+      // Update frame to make walking motion
       if (gameFrame % this.walkSpeed === 0) {
         this.frame < 1 ? (this.frame = 3) : this.frame--;
       }
-    } else if (this.direction === "RTL" && this.isCustomer === "No") {
+    } // Scenario 4: Element moves from Left to Right & Do not buy a cup
+    else if (this.direction === "RTL" && this.isCustomer === "No") {
+      // Update x-coordinate so element moves along x-axis on screen
       this.x -= this.speedX;
 
-      // Increase this.frame to make walking motion
+      // Update frame to make walking motion
       if (gameFrame % this.walkSpeed === 0) {
         this.frame < 1 ? (this.frame = 3) : this.frame--;
       }
@@ -164,7 +177,7 @@ class Human {
     }
   }
 
-  // Drawing the human
+  // Method that draws the element (called in each animation loop)
   draw() {
     if (animation) {
       window.cancelAnimationFrame(animation);
@@ -184,15 +197,12 @@ class Human {
   }
 }
 
-// Variables
-let gameFrame = 0;
-
-// Function to animate human walking left to right
+// Function to animate human instances
 function animateHuman() {
   // Clear previous frames
   ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
 
-  // Creating an animation for each human type
+  // Updating and drawing on screen
   humanArray.forEach((human) => {
     human.update();
     human.draw();
@@ -201,7 +211,6 @@ function animateHuman() {
   // Calling the animate function again to create a loop
   gameFrame++;
   animation = window.requestAnimationFrame(animateHuman);
-  // requestAnimationFrame(animateHuman);
 }
 
 function resetGameframe() {

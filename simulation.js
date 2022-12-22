@@ -3,41 +3,32 @@ import { randomNumOfCustomers } from "./supporting_files/randomisation.js";
 import { eodReportUpdate } from "./supporting_files/updateEodReport.js";
 import { maxCupsCalculation } from "./supporting_files/maxCupsCalculation.js";
 import { delay } from "./supporting_files/delay.js";
-import {
-  inventory,
-  cash,
-  setCash,
-  recipe,
-  balanceSheet,
-  humanArray,
-} from "./main.js";
+import { inventory, cash, setCash, recipe, balanceSheet } from "./main.js";
 import {
   Human,
   CANVAS_WIDTH,
   resetGameframe,
-  inventorySimulation,
-  cashSimualtion,
-  setCashSimulation,
-} from "./animation_files/animateHuman.js";
+  humanArray,
+} from "./animateHuman.js";
 
 // Declaring supporting variables
 const resultArray = [];
 let boughtCount = 0;
 let didNotBuyCount = 0;
 
-// Function to simulate day
+// Function to simulate demand for the day
 function simulationResult(weather, temperature, price) {
-  // Clear boughtCount and didNotBuyCount variable
+  // Clear boughtCount and didNotBuyCount variable (from previous day/round)
   boughtCount = 0;
   didNotBuyCount = 0;
-
-  // Calculate probability of purchase
-  const probability = probabilityOfPurchase(weather, temperature, price);
 
   // Randomize number of customers
   const numOfCustomers = randomNumOfCustomers();
 
-  // Calculate maximum number of cups that can be sold
+  // Calculate probability of purchase for each customer
+  const probability = probabilityOfPurchase(weather, temperature, price);
+
+  // Calculate maximum number of cups that can be sold in the day
   const maxCupsThatCanBeSold = maxCupsCalculation(
     inventory.paperCups,
     inventory.lemon,
@@ -60,8 +51,8 @@ function simulationResult(weather, temperature, price) {
         balanceSheet.sales += price;
         setCash(cash + price);
         resultArray.push("Yes");
-      } else {
-        // Customer does not buy a cup
+      } // Customer does not buy a cup
+      else {
         didNotBuyCount++;
         resultArray.push("No");
       }
@@ -74,13 +65,12 @@ function simulationResult(weather, temperature, price) {
 
   // Update EOD report
   eodReportUpdate(boughtCount, numOfCustomers);
-  console.log("prev", humanArray);
 }
 
+// Function to loop through resultArray and create array of Human instances
 async function simulationAnimation(price) {
-  console.log("start", humanArray);
-
   for (let i = 0; i <= resultArray.length - 1; i++) {
+    // Slow down the next iteration by 0.5 secs
     delay;
     await delay(500);
 
@@ -89,8 +79,8 @@ async function simulationAnimation(price) {
     const option = Math.floor(Math.random() * 2); // Returns 0 or 1
 
     // Customer buys a cup
+    // Create Human instance that will walk to and pause at lemonade stand (randomize direction)
     if (resultArray[i] === "Yes") {
-      // Animate
       if (option === 0) {
         human = new Human(
           "LTR",
@@ -114,9 +104,9 @@ async function simulationAnimation(price) {
       }
 
       humanArray.push(human);
-
-      // Customer does not buy a cup
-    } else {
+    } // Customer does not buy a cup
+    // Create Human instance that will just walk straight (randomize direction)
+    else {
       if (option === 0) {
         human = new Human(
           "LTR",
@@ -142,15 +132,16 @@ async function simulationAnimation(price) {
     }
   }
 
+  // Function to run 15 secs after the loop ends (allows animateHuman function to complete running first)
   setTimeout(() => {
+    // Pop up "Close shop button"
+    $("#close-shop-btn").css("display", "block");
+
     // Clear arrays
     humanArray.splice(0, humanArray.length);
     resetGameframe();
     resultArray.splice(0, resultArray.length);
   }, 15000);
-
-  // Pop up "Close shop button"
-  $("#close-shop-btn").css("display", "block");
 }
 
 export { simulationResult, simulationAnimation, resultArray };

@@ -7,18 +7,13 @@ import {
   toggleEndGameToStartGame,
 } from "./toggleScreen.js";
 import { startNewDay } from "./startNewDay.js";
-import {
-  simulationResult,
-  simulationAnimation,
-  resultArray,
-} from "./simulation.js";
+import { simulationResult, simulationAnimation } from "./simulation.js";
 import {
   animateHuman,
-  resetGameframe,
   inventorySimulation,
   setCashSimulation,
   cashSimualtion,
-} from "./animation_files/animateHuman.js";
+} from "./animateHuman.js";
 
 // Declare Variables
 let day = 0;
@@ -42,7 +37,6 @@ const balanceSheet = {
   cost: 0,
   sales: 0,
 };
-const humanArray = [];
 
 // Functions to edit variables
 function setDay(value) {
@@ -62,7 +56,7 @@ function setPrice(value) {
 }
 
 function setCash(value) {
-  cash = parseFloat((Math.round(value * 100) / 100).toFixed(2));
+  cash = value;
 }
 
 // Function to play sound
@@ -81,11 +75,8 @@ $(() => {
     startNewDay();
   });
 
-  // Switch to instruction page
-  $("#instructions-btn").on("click", () => {});
-
   // Event listeners on day-start-screen
-  // Tooltip for headers
+  // Tooltip for headers - mouseover
   $("#day-start-screen-header").on("mouseover", (e) => {
     if ($(e.target).attr("id") === "weather-header") {
       $("#weather-report-section").css("display", "block");
@@ -95,7 +86,7 @@ $(() => {
       $("#help-section").css("display", "block");
     }
   });
-
+  // Tooltip for headers - mouseout
   $("#day-start-screen-header").on("mouseout", (e) => {
     if ($(e.target).attr("id") === "weather-header") {
       $("#weather-report-section").css("display", "none");
@@ -106,7 +97,7 @@ $(() => {
     }
   });
 
-  // Inventory buttons
+  // Purchase inventory buttons
   $(".button-container").on("click", (e) => {
     playSound("click_sound");
     const option = $(e.target).attr("id");
@@ -177,10 +168,10 @@ $(() => {
         break;
     }
 
+    // Allow purchase if there's sufficient balance
     if (cashSpent <= cash) {
       // Cash balance
       cash -= cashSpent;
-      cash = parseFloat((Math.round(cash * 100) / 100).toFixed(2));
       balanceSheet.cost += cashSpent;
       $(".cash").text(cash.toFixed(2));
 
@@ -201,12 +192,13 @@ $(() => {
           $(".ice-cubes-qty").text(inventory[item]);
           break;
       }
-    } else {
+    } // Do not allow purchase if there's insufficient balance
+    else {
       alert("Insufficient cash!");
     }
   });
 
-  // Price input
+  // Input for price per cup
   $("#price-input").on("change", (e) => {
     price = parseFloat($(e.target).val());
   });
@@ -215,7 +207,7 @@ $(() => {
   $("#open-shop-btn").on("click", () => {
     // Play click sound
     playSound("click_sound");
-    // Update simulation cash and inventory variables & DOM
+    // Update cash and inventory variables & DOM on day-simulation screen
     setCashSimulation(cash);
     inventorySimulation.paperCups = inventory.paperCups;
     inventorySimulation.lemon = inventory.lemon;
@@ -227,7 +219,7 @@ $(() => {
     $("#ice-cubes-qty-dashboard").text(inventorySimulation.iceCubes);
     $("#cash-dashboard").text(cashSimualtion.toFixed(2));
 
-    // Run demand simulation
+    // Run demand calculation and animation functions
     toggleDayStartToSimulation();
     simulationResult(weather, temperature, price);
     simulationAnimation(price);
@@ -242,7 +234,7 @@ $(() => {
     // Hide close shop button
     $("#close-shop-btn").css("display", "none");
 
-    // Toggle page to next screen
+    // Toggle page to next screen (day-end-screen)
     toggleSimulationToDayEnd();
 
     if (day === 7) {
@@ -260,10 +252,11 @@ $(() => {
       inventory.lemon = 0;
       inventory.iceCubes = 0;
 
-      // Toggle
+      // Toggle page to next screen and reset day
       toggleDayEndToDayStart();
       startNewDay();
     } else {
+      // Toggle to and update End-game screen
       $("#total-expenses").text(balanceSheet.cost.toFixed(2));
       $("#total-sales").text(balanceSheet.sales.toFixed(2));
       $(".cash").text(cash.toFixed(2));
@@ -276,6 +269,7 @@ $(() => {
     // Play click sound
     playSound("click_sound");
 
+    // Reload window and toggle to start-game screen
     location.reload();
     toggleEndGameToStartGame();
   });
@@ -295,5 +289,4 @@ export {
   setTemperature,
   setPrice,
   setCash,
-  humanArray,
 };

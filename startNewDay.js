@@ -2,15 +2,11 @@ import {
   day,
   weather,
   temperature,
-  price,
   cash,
   inventory,
-  recipe,
   setDay,
   setWeather,
   setTemperature,
-  setPrice,
-  setCash,
 } from "./main.js";
 
 import {
@@ -18,7 +14,7 @@ import {
   randomTemperature,
 } from "./supporting_files/randomisation.js";
 
-// Function that starts a new day
+// Function that resets start-day screen for a new round
 function startNewDay() {
   // Randomize weather, temperature conditions
   setDay(day + 1);
