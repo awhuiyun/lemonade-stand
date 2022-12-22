@@ -65,11 +65,18 @@ function setCash(value) {
   cash = parseFloat((Math.round(value * 100) / 100).toFixed(2));
 }
 
+// Function to play sound
+function playSound(name) {
+  let audio = new Audio("sound/" + name + ".mp3");
+  audio.play();
+}
+
 // Link JS to HTML file
 $(() => {
   // Event listeners on start-game-screen
   // Start game
   $("#start-game-btn").on("click", () => {
+    playSound("click_sound");
     toggleStartGameToDayStart();
     startNewDay();
   });
@@ -101,6 +108,7 @@ $(() => {
 
   // Inventory buttons
   $(".button-container").on("click", (e) => {
+    playSound("click_sound");
     const option = $(e.target).attr("id");
     let item = "";
     let qty = 0;
@@ -205,6 +213,8 @@ $(() => {
 
   // Open shop button
   $("#open-shop-btn").on("click", () => {
+    // Play click sound
+    playSound("click_sound");
     // Update simulation cash and inventory variables & DOM
     setCashSimulation(cash);
     inventorySimulation.paperCups = inventory.paperCups;
@@ -226,6 +236,9 @@ $(() => {
 
   // Event listeners on day-simulation-screen
   $("#close-shop-btn").on("click", () => {
+    // Play click sound
+    playSound("click_sound");
+
     // Hide close shop button
     $("#close-shop-btn").css("display", "none");
 
@@ -239,6 +252,9 @@ $(() => {
 
   // Event listeners on day-end-screen
   $("#prep-next-day-btn").on("click", () => {
+    // Play click sound
+    playSound("click_sound");
+
     if (day < 7) {
       // Expire lemons and ice
       inventory.lemon = 0;
@@ -257,6 +273,9 @@ $(() => {
 
   // Event listeners on end-game-screen
   $("#replay-btn").on("click", () => {
+    // Play click sound
+    playSound("click_sound");
+
     location.reload();
     toggleEndGameToStartGame();
   });
