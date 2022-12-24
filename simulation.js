@@ -71,7 +71,6 @@ function simulationResult(weather, temperature, price) {
 async function simulationAnimation(price) {
   for (let i = 0; i <= resultArray.length - 1; i++) {
     // Slow down the next iteration by 0.5 secs
-    delay;
     await delay(500);
 
     // Declare variable for new human instance
